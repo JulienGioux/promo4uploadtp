@@ -27,10 +27,10 @@ if (isset($_FILES["myImg"])) {
         } else {
             $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
         }
+    } else {
+        $messageInvalid = 'Votre fichier n\'est pas une image';
     }
-} else {
-    $messageInvalid = 'Votre fichier n\'est pas une image';
-}   
+} 
 
 
     
