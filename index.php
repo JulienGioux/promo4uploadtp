@@ -1,3 +1,6 @@
+<?php
+    var_dump($_FILES);
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="uploadPreview/uploadPreview.css">
+    <link rel="stylesheet" href="assets/uploadPreview.css">
     <link rel="stylesheet" href="assets/style.css">
     <title>TP Upload</title>
 </head>
@@ -16,12 +19,12 @@
             <p>Mise en pratique PHP : Upload d'images.</p>
             <div class="card horizontal">
                 <div class="card-stacked">
-                <form action="#">
+                <form action="index.php"  method="post" enctype="multipart/form-data">
                     <div class="file-field input-field">
                         <p>Veuillez choisir une image :</p>
                         <div class="btn">
                             <span>File</span>
-                            <input type="file">
+                            <input type="file" id="imgUpload" name="imgUpload" data-preview=".preview">
                         </div>
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
@@ -33,13 +36,13 @@
                 </form>
                 </div>
                 <div class="card-image">
-                    <img src="img/capture01.PNG">
+                    <img class="preview" src="img/capture01.PNG">
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="uploadPreview/uploadPreview.js"></script>
+    <script src="assets/uploadPreview.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>
