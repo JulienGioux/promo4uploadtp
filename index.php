@@ -6,7 +6,7 @@ $actualExtension = $infoExtension['extension'];
 $newName = uniqid('img_');
 $path = './img';
 
-$extensionAccepted = ['image/jpeg', 'image/png'];
+$extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
 $sizeMax = '100000';
 
 $i = 0;
@@ -15,10 +15,8 @@ do {
     $newName = uniqid('img_');
 } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
 
-if (isset($_FILES["myImg"])) {
+if (isset($_FILES['myImg'])) {
     $mimeType = getimagesize($tempPath);
-    echo 'test';
-    var_dump($mimeType)['mime'];
     if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
         if ($actualSize <= $sizeMax) {
             $messageValid = 'le fichier ' . $_FILES['myImg']['name'] . ' a bien été uploadé';
@@ -26,10 +24,10 @@ if (isset($_FILES["myImg"])) {
         } else {
             $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
         }
-    }
-} else {
-    $messageInvalid = 'Votre fichier n\'est pas une image';
-}   
+    } else {
+        $messageInvalid = 'Votre fichier n\'est pas une image';
+    }   
+} 
 
 
     
