@@ -1,35 +1,5 @@
-<?php
-
-$tempPath = $_FILES['myImg']['tmp_name'];
-$actualSize = $_FILES['myImg']['size'];
-$mimeType = $_FILES['myImg']['type'];
-$infoExtension = pathinfo($_FILES['myImg']['name']);
-$actualExtension = $infoExtension['extension'];
-$newName = uniqid('img_');
-$path = './img';
-
-$extensionAccepted = ['image/jpg', 'image/png'];
-$sizeMax = '100000';
-
-echo $mimeType;
-
-$i = 0;
-do {
-    $i++;
-    $newName = uniqid('img_');
-} while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
-
-if (in_array($mimeType, $extensionAccepted) && $i < 10) {
-        move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $actualExtension);
-}
 
 
-
-
-
-var_dump($_FILES);
-
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
