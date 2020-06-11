@@ -2,16 +2,13 @@
 
 $tempPath = $_FILES['myImg']['tmp_name'];
 $actualSize = $_FILES['myImg']['size'];
-$mimeType = $_FILES['myImg']['type'];
 $infoExtension = pathinfo($_FILES['myImg']['name']);
 $actualExtension = $infoExtension['extension'];
 $newName = uniqid('img_');
 $path = './img';
 
-$extensionAccepted = ['image/jpg', 'image/png'];
+$extensionAccepted = ['image/jpeg', 'image/png'];
 $sizeMax = '100000';
-
-echo $mimeType;
 
 $i = 0;
 do {
@@ -19,13 +16,24 @@ do {
     $newName = uniqid('img_');
 } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
 
-if (in_array($mimeType, $extensionAccepted) && $i < 10) {
-        move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $actualExtension);
-}
+if (isset($_FILES["myImg"])) {
+    $mimeType = getimagesize($tempPath);
+    echo 'test';
+    var_dump($mimeType)['mime'];
+    if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
+        if ($actualSize <= $sizeMax) {
+            $messageValid = 'le fichier ' . $_FILES['myImg']['name'] . ' a bien été uploadé';
+            move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $actualExtension);
+        } else {
+            $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
+        }
+    }
+} else {
+    $messageInvalid = 'Votre fichier n\'est pas une image';
+}   
 
 
-
-
+    
 
 var_dump($_FILES);
 
@@ -62,6 +70,9 @@ var_dump($_FILES);
                                 <input class="file-path validate" type="text">
                             </div>
                         </div>
+                        <p><?= (isset($messageValid))? $messageValid : $messageInvalid ?>
+                        <br>
+                        <?= (isset($messageInvalid))? 'Votre fichier n\'a pas été uploadé' : '' ?></p>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
