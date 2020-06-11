@@ -75,8 +75,9 @@ if (isset($_FILES['myImg'])) {
     if ($_FILES['myImg']['error'] === UPLOAD_ERR_OK) {
         // uploading successfully done
         } else {
-        // throw new UploadException($_FILES['myImg']['error']);
+        
         echo $_FILES['myImg']['error'];
+        throw new UploadException($_FILES['myImg']['error']);
         }   
 } 
  
