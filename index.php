@@ -1,40 +1,40 @@
 <?php
 
-$tempPath = $_FILES['myImg']['tmp_name'];
-$actualSize = $_FILES['myImg']['size'];
-$infoExtension = pathinfo($_FILES['myImg']['name']);
-$actualExtension = $infoExtension['extension'];
-$newName = uniqid('img_');
-$path = './img';
+if (isset($_FILES['myImg'])) {
 
-$extensionAccepted = ['image/jpeg', 'image/png'];
-$sizeMax = '100000';
-
-$i = 0;
-do {
-    $i++;
+    $tempPath = $_FILES['myImg']['tmp_name'];
+    $actualSize = $_FILES['myImg']['size'];
+    $infoExtension = pathinfo($_FILES['myImg']['name']);
+    $actualExtension = $infoExtension['extension'];
     $newName = uniqid('img_');
-} while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
+    $path = './img';
 
-if (isset($_FILES["myImg"])) {
-    $mimeType = getimagesize($tempPath);
-    echo 'test';
-    var_dump($mimeType)['mime'];
+    $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
+    $sizeMax = '1000000';
+
+    $i = 0;
+    do {
+        $i++;
+        $newName = uniqid('img_');
+    } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
+    
+    $mimeType = @getimagesize($tempPath);
+
+    $extensionName = preg_split('[/]', $mimeType['mime']);
+
     if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
         if ($actualSize <= $sizeMax) {
-            $messageValid = 'le fichier ' . $_FILES['myImg']['name'] . ' a bien été uploadé';
-            move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $actualExtension);
+            $messageValid = 'le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
+            move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
         } else {
             $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
         }
     } else {
         $messageInvalid = 'Votre fichier n\'est pas une image';
-    }
+    }   
 } 
 
-
-    
-
+var_dump($mimeType);
 var_dump($_FILES);
 
 ?>
@@ -70,9 +70,8 @@ var_dump($_FILES);
                                 <input class="file-path validate" type="text">
                             </div>
                         </div>
-                        <p><?= (isset($messageValid))? $messageValid : $messageInvalid ?>
-                        <br>
-                        <?= (isset($messageInvalid))? 'Votre fichier n\'a pas été uploadé' : '' ?></p>
+                        <p><?= (isset($messageValid))? $messageValid : '' ?>
+                        <?= (isset($messageInvalid))? $messageInvalid . '<br>' . 'Votre fichier n\'a pas été uploadé' : '' ?></p>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
