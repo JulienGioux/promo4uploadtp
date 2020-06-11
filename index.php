@@ -36,7 +36,7 @@
                 </form>
                 </div>
                 <div class="card-image">
-                    <img class="preview" src="img/capture01.png">
+                    <img class="preview" src="img/no-image-placeholder-2.jpg">
                 </div>
             </div>
         </div>
