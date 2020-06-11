@@ -32,7 +32,7 @@ if (isset($_FILES['myImg'])) {
     } else {
         $messageInvalid = 'Votre fichier n\'est pas une image';
     }   
-} 
+}
 
 var_dump($mimeType);
 var_dump($_FILES);
