@@ -56,7 +56,7 @@ var_dump($_FILES);
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
-                                <input type="file" id="myImg" name="myImg">
+                                <input type="file" id="myImg" name="myImg" data-preview=".preview">
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
