@@ -1,4 +1,43 @@
 <?php
+class UploadException extends Exception
+{
+    public function __construct($code) {
+        $message = $this->codeToMessage($code);
+        parent::__construct($message, $code);
+    }
+
+    private function codeToMessage($code)
+    {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $message = "The uploaded file was only partially uploaded";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message = "No file was uploaded";
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = "Missing a temporary folder";
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = "Failed to write file to disk";
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $message = "File upload stopped by extension";
+                break;
+
+            default:
+                $message = "Unknown upload error";
+                break;
+        }
+        return $message;
+    }
+}
 
 if (isset($_FILES['myImg'])) {
 
@@ -22,21 +61,28 @@ if (isset($_FILES['myImg'])) {
 
     $extensionName = preg_split('[/]', $mimeType['mime']);
 
-    if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
-        if ($actualSize <= $sizeMax) {
+    if ($actualSize <= $sizeMax) {
+        if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
             $messageValid = 'le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
             move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
         } else {
-            $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
+            $messageInvalid = 'Votre fichier n\'est pas une image';
+           
         }
     } else {
-        $messageInvalid = 'Votre fichier n\'est pas une image';
-    }   
-}
-
+        $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
+    }
+    if ($_FILES['myImg']['error'] === UPLOAD_ERR_OK) {
+        // uploading successfully done
+        } else {
+        // throw new UploadException($_FILES['myImg']['error']);
+        echo $_FILES['myImg']['error'];
+        }   
+} 
+ 
 var_dump($mimeType);
 var_dump($_FILES);
-
+// echo $_FILES['myImg']['error'];
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +110,7 @@ var_dump($_FILES);
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
                                 <input type="file" id="myImg" name="myImg" data-preview=".preview">
                             </div>
                             <div class="file-path-wrapper">
