@@ -39,7 +39,7 @@ var_dump($_FILES);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="uploadPreview/uploadPreview.css">
+    <link rel="stylesheet" href="assets/uploadPreview.css">
     <link rel="stylesheet" href="assets/style.css">
     <title>TP Upload</title>
 </head>
@@ -68,14 +68,16 @@ var_dump($_FILES);
                     </form>
                 </div>
                 <div class="card-image">
-                    <img src="img/capture01.PNG">
+                    <img class="preview" src="img/no-image-placeholder-2.jpg">
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="uploadPreview/uploadPreview.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="assets/uploadPreview.js"></script>
 </body>
 
 </html>
