@@ -49,7 +49,7 @@ if (isset($_FILES['myImg'])) {
     $path = './img';
 
     $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
-    $sizeMax = '1000';
+    $sizeMax = '1000000';
 
     $i = 0;
     do {
@@ -110,7 +110,7 @@ var_dump($_FILES);
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
-                                <input type="hidden" name="MAX_FILE_SIZE" value="1000">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
                                 <input type="file" id="myImg" name="myImg" data-preview=".preview">
                             </div>
                             <div class="file-path-wrapper">
