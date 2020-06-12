@@ -1,5 +1,4 @@
 <?php
-
 $i = 0;
 if (isset($_FILES['myImg'])) {
 
@@ -35,7 +34,11 @@ if (isset($_FILES['myImg'])) {
     }
 
 } else {
-    $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+    
+    if (isset($_POST) && empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
+        var_dump($_POST);
+        $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+    }
 }
 if ($i >= 10) {
     $messageInvalid = 'Le serveur a rencontrer un problème';
