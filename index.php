@@ -1,6 +1,6 @@
 <?php
 
-
+$i = 0;
 if (isset($_FILES['myImg'])) {
 
     $tempPath = $_FILES['myImg']['tmp_name'];
@@ -13,7 +13,7 @@ if (isset($_FILES['myImg'])) {
     $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
     $sizeMax = '1000000';
 
-    $i = 0;
+    
     do {
         $i++; //protection
         $newName = uniqid('img_');
@@ -21,10 +21,9 @@ if (isset($_FILES['myImg'])) {
 
 
 
-    if ($actualSize <= $sizeMax && $_FILES['myImg']['size'] > 0) {
-        $mimeType = getimagesize($tempPath);       
-        if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
-            $extensionName = preg_split('[/]', $mimeType['mime']);
+    if ($actualSize <= $sizeMax  && $actualSize > 0) {    
+        if (in_array(mime_content_type($tempPath), $extensionAccepted) && $i < 10) {
+            $extensionName = preg_split('[/]', mime_content_type($tempPath));
             $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
             move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
         } else {
