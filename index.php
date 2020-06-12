@@ -1,47 +1,63 @@
 <?php
 $i = 0;
-if (!empty($_FILES['myImg']['name']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
+function rearrange($arr){
+    foreach( $arr as $key => $all ){
+        foreach( $all as $i => $val ){
+            $new[$i][$key] = $val;   
+        }   
+    }
+    return $new;
+}
+$files = rearrange($_FILES['myImg']);
+var_dump($files);
+$i = 0;
 
-    $tempPath = $_FILES['myImg']['tmp_name'];
-    $actualSize = $_FILES['myImg']['size'];
-    $infoExtension = pathinfo($_FILES['myImg']['name']);
-    $actualExtension = $infoExtension['extension'];
-    $newName = uniqid('img_');
-    $path = './img';
+function testFile() {
+    if (!empty($key['name']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] && $_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
-    $sizeMax = '1000000';
-
-    
-    do {
-        $i++; //protection
+        $tempPath = $_FILES['myImg']['tmp_name'];
+        $actualSize = $_FILES['myImg']['size'];
+        $infoExtension = pathinfo($_FILES['myImg']['name']);
+        $actualExtension = $infoExtension['extension'];
         $newName = uniqid('img_');
-    } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
-
-
-
-    if ($actualSize <= $sizeMax  && $actualSize > 0) {    
-        if (in_array(mime_content_type($tempPath), $extensionAccepted) && $i < 10) {
-            $extensionName = preg_split('[/]', mime_content_type($tempPath));
-            $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
-            move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
-        } else {
-            $messageInvalid = 'Votre fichier n\'est pas une image';
-           
-        }
-    } else {
-        $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
-    }
-
-} else {
+        $path = './img';
     
-    if (empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
-        $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+        $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
+        $sizeMax = '1000000';
+    
+        
+        do {
+            $i++; //protection
+            $newName = uniqid('img_');
+        } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
+    
+    
+    
+        if ($actualSize <= $sizeMax  && $actualSize > 0) {    
+            if (in_array(mime_content_type($tempPath), $extensionAccepted) && $i < 10) {
+                $extensionName = preg_split('[/]', mime_content_type($tempPath));
+                $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
+                move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
+            } else {
+                $messageInvalid = 'Votre fichier n\'est pas une image';
+               
+            }
+        } else {
+            $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
+        }
+    
+    } else {
+        
+        if (empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
+            $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+        }
+    }
+    if ($i >= 10) {
+        $messageInvalid = 'Le serveur a rencontrer un problème';
     }
 }
-if ($i >= 10) {
-    $messageInvalid = 'Le serveur a rencontrer un problème';
-}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -71,8 +87,8 @@ if ($i >= 10) {
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
-                                <!-- <input type="hidden" name="MAX_FILE_SIZE" value="1000000"> -->
-                                <input type="file" id="myImg" name="myImg" data-preview=".preview">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+                                <input type="file" multiple id="myImg" name="myImg[]" data-preview=".preview">
                                 
                             </div>
                             <div class="file-path-wrapper">
@@ -102,5 +118,4 @@ if ($i >= 10) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="assets/uploadPreview.js"></script>
 </body>
-
 </html>
