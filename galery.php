@@ -4,7 +4,7 @@ function updateGalery() {
     $imgGalery = array_diff(scandir('img'), array('..', '.'));
 
     foreach($imgGalery as $img) {
-        echo '<img class="col s4 responsive-img" src="img/'. $img .'">';
+        echo '<img class="col s4 responsive-img z-depth-2 materialboxed" src="img/'. $img .'">';
     }
 }
  

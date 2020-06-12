@@ -1,6 +1,6 @@
 <?php
 $i = 0;
-if (isset($_FILES['myImg'])) {
+if (!empty($_FILES['myImg']['name'])) {
 
     $tempPath = $_FILES['myImg']['tmp_name'];
     $actualSize = $_FILES['myImg']['size'];
