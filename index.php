@@ -57,11 +57,11 @@ if (isset($_FILES['myImg'])) {
         $newName = uniqid('img_');
     } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
     
-    $mimeType = @getimagesize($tempPath);
 
-    $extensionName = preg_split('[/]', $mimeType['mime']);
 
     if ($actualSize <= $sizeMax) {
+        $mimeType = @getimagesize($tempPath);
+        $extensionName = preg_split('[/]', $mimeType['mime']);
         if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
             $messageValid = 'le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
             move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
@@ -72,13 +72,7 @@ if (isset($_FILES['myImg'])) {
     } else {
         $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
     }
-    if ($_FILES['myImg']['error'] === UPLOAD_ERR_OK) {
-        // uploading successfully done
-        } else {
-        
-        echo $_FILES['myImg']['error'];
-        throw new UploadException($_FILES['myImg']['error']);
-        }   
+
 } 
  
 var_dump($mimeType);
