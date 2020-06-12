@@ -22,7 +22,7 @@ if (isset($_FILES['myImg'])) {
 
 
     if ($actualSize <= $sizeMax && $_FILES['myImg']['size'] > 0) {
-        $mimeType = @getimagesize($tempPath);       
+        $mimeType = getimagesize($tempPath);       
         if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
             $extensionName = preg_split('[/]', $mimeType['mime']);
             $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
@@ -35,7 +35,9 @@ if (isset($_FILES['myImg'])) {
         $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
     }
 
-} 
+} else {
+    $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+}
  
 ?>
 
