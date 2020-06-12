@@ -1,6 +1,6 @@
 <?php
 $i = 0;
-if (isset($_FILES['myImg']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
+if (!empty($_FILES['myImg']['name']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
 
     $tempPath = $_FILES['myImg']['tmp_name'];
     $actualSize = $_FILES['myImg']['size'];
