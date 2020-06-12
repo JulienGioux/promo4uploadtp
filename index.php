@@ -13,12 +13,12 @@ if (isset($_FILES['myImg'])) {
     $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
     $sizeMax = '1000000';
 
-    $i = 0;
+    $i = 10;
     do {
         $i++; //protection
         $newName = uniqid('img_');
     } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
-    
+
 
 
     if ($actualSize <= $sizeMax && $_FILES['myImg']['size'] > 0) {
@@ -37,6 +37,9 @@ if (isset($_FILES['myImg'])) {
 
 } else {
     $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
+}
+if ($i >= 10) {
+    $messageInvalid = 'Le serveur a rencontrer un problème';
 }
  
 ?>
