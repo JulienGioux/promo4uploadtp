@@ -71,7 +71,7 @@ if ($i >= 10) {
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
-                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+                                <!-- <input type="hidden" name="MAX_FILE_SIZE" value="1000000"> -->
                                 <input type="file" id="myImg" name="myImg" data-preview=".preview">
                             </div>
                             <div class="file-path-wrapper">

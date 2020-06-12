@@ -4,7 +4,15 @@ function updateGalery() {
     $imgGalery = array_diff(scandir('img'), array('..', '.'));
 
     foreach($imgGalery as $img) {
-        echo '<img class="col s4 responsive-img z-depth-2 materialboxed" width="650"  src="img/'. $img .'">';
+        // echo '<img class="headline materialboxed" src="img/'. $img .'">';
+        echo
+        '<div class="col s6 headline">
+            <div class="card">
+                <div class="card-image">
+                <img class="responsive-img materialboxed" src="img/'. $img .'">
+                </div>
+            </div>
+        </div>';
     }
 }
  
@@ -30,17 +38,20 @@ function updateGalery() {
     </div>
     <div class="row">
             <?= updateGalery() ?>
+            <?= updateGalery() ?>
     </div>
 
 
     
-    
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.materialboxed');
             var instances = M.Materialbox.init(elems);
         });
+
+        ScrollReveal().reveal('.headline');
     </script>
 </body>
 
