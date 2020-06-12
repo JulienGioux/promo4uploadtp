@@ -13,7 +13,7 @@ if (isset($_FILES['myImg'])) {
     $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
     $sizeMax = '1000000';
 
-    $i = 10;
+    $i = 0;
     do {
         $i++; //protection
         $newName = uniqid('img_');
