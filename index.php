@@ -98,7 +98,7 @@ if (isset($_FILES['myImg'])) {
                 <p>Mise en pratique PHP : Upload d'images.</p>
             </div>
             <div class="card horizontal">
-                <div class="card-stacked col s12">
+                <div class="card-stacked col s8">
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
