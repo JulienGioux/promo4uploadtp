@@ -16,4 +16,11 @@ h1{
         font-size: 1.2rem;
         font-weight: bold;
     }
+    .file-field .file-path-wrapper {
+        overflow: visible;
+        padding-left: 0;
+    }
+    .card.horizontal .card-image {
+        margin-top: 1.5rem;
+    }
 }
