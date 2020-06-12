@@ -39,6 +39,7 @@ class UploadException extends Exception
     }
 }
 
+
 if (isset($_FILES['myImg'])) {
 
     $tempPath = $_FILES['myImg']['tmp_name'];
