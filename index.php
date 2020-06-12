@@ -83,6 +83,9 @@ if ($i >= 10) {
                             <i class="material-icons right">send</i>
                         </button>
                     </form>
+                    <div class="card-action">
+                        <a href="galery.php">Voir la galerie</a>
+                    </div>
                 </div>
                 <div class="card-image">
                     <img class="preview" src="img/no-image-placeholder-2.jpg">
