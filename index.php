@@ -1,6 +1,6 @@
 <?php
 $i = 0;
-if (!empty($_FILES['myImg']['name'])) {
+if (!empty($_FILES['myImg']['name']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
 
     $tempPath = $_FILES['myImg']['tmp_name'];
     $actualSize = $_FILES['myImg']['size'];
@@ -35,15 +35,13 @@ if (!empty($_FILES['myImg']['name'])) {
 
 } else {
     
-    if (isset($_POST) && empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
-        var_dump($_POST);
+    if (empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
         $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
     }
 }
 if ($i >= 10) {
     $messageInvalid = 'Le serveur a rencontrer un problème';
 }
- 
 ?>
 
 <!DOCTYPE html>
