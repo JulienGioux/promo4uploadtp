@@ -39,7 +39,8 @@ function updateGalery() {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.materialboxed');
-            var instances = M.Materialbox.init(elems);
+            var options = {inDuration: 400, outDuration: 300};
+            var instances = M.Materialbox.init(elems, options);
         });
     </script>
 </body>
