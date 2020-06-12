@@ -64,7 +64,7 @@ if (isset($_FILES['myImg'])) {
         $mimeType = @getimagesize($tempPath);
         $extensionName = preg_split('[/]', $mimeType['mime']);
         if ($mimeType !== false && in_array($mimeType['mime'], $extensionAccepted) && $i < 10) {
-            $messageValid = 'le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
+            $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
             move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
         } else {
             $messageInvalid = 'Votre fichier n\'est pas une image';
@@ -76,9 +76,6 @@ if (isset($_FILES['myImg'])) {
 
 } 
  
-var_dump($mimeType);
-var_dump($_FILES);
-// echo $_FILES['myImg']['error'];
 ?>
 
 <!DOCTYPE html>
@@ -94,13 +91,15 @@ var_dump($_FILES);
     <title>TP Upload</title>
 </head>
 
-<body>
+<body class="container">
     <div class="row">
-        <div class="col s12 m10 offset-m1">
-            <h2 class="header">Module d'enregistrement d'images.</h2>
-            <p>Mise en pratique PHP : Upload d'images.</p>
+        <div class="col s12">
+            <div class="indigo lighten-5" id="headerForm">
+                <h1>Module d'enregistrement d'images.</h1>
+                <p>Mise en pratique PHP : Upload d'images.</p>
+            </div>
             <div class="card horizontal">
-                <div class="card-stacked">
+                <div class="card-stacked col s12">
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
@@ -113,8 +112,8 @@ var_dump($_FILES);
                                 <input class="file-path validate" type="text">
                             </div>
                         </div>
-                        <p><?= (isset($messageValid))? $messageValid : '' ?>
-                        <?= (isset($messageInvalid))? $messageInvalid . '<br>' . 'Votre fichier n\'a pas été uploadé' : '' ?></p>
+                        <p class="light-green-text text-darken-1"><?= (isset($messageValid))? $messageValid : '' ?></p>
+                        <p class="red-text text-accent-4"><?= (isset($messageInvalid))? $messageInvalid . '<br>' . 'Votre fichier n\'a pas été uploadé' : '' ?></p>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
