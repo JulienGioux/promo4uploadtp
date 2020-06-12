@@ -73,11 +73,13 @@ if ($i >= 10) {
                                 <span>File</span>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
                                 <input type="file" id="myImg" name="myImg" data-preview=".preview">
+                                
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
                             </div>
                         </div>
+                        <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                         <p class="light-green-text text-darken-1"><?= (isset($messageValid))? $messageValid : '' ?></p>
                         <p class="red-text text-accent-4"><?= (isset($messageInvalid))? $messageInvalid . '<br>' . 'Votre fichier n\'a pas été uploadé' : '' ?></p>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
