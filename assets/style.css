@@ -1,31 +1,14 @@
-.file-field input[type=file] {
-    padding: 1rem;
-}
-
 h1{
-    font-size: 3.56rem;
-    margin-top: 0;
+    word-wrap: break-word;
 }
-@media screen and (max-width: 600px) {
+ @media screen and (max-width: 600px) {
     h1 {
         margin: 0;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: bold;
     }
-    .file-field .file-path-wrapper {
-        overflow: visible;
-        padding-left: 0;
-    }
-    .card.horizontal .card-image {
-        margin-top: 1.5rem;
-    }
-}
-.card-action {
-    margin-top: 1rem;
-}
-.card-image {
-    padding: 2rem;
-}
+ }
+
 img {
     padding: 1rem;
     width:100%;

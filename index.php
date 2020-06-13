@@ -119,7 +119,7 @@ function showMsgs ($filesArr) {
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
-                            <div class="btn blue darken-4">
+                            <div class="btn blue darken-4 btn-floating pulse">
                                 <span>File</span>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
                                 <input type="file" multiple id="myImg" name="myImg[]" data-preview=".preview">
