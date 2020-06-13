@@ -2,7 +2,6 @@
 define('MAX_UPLOAD_SIZE', '1000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
-var_dump(http_response_code());
 function rearrange($arr){
     foreach( $arr as $key => $all ){
         foreach( $all as $i => $val ){
