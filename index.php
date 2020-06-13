@@ -108,18 +108,18 @@ function showMsgs ($filesArr) {
 </head>
 
 <body class="container">
-    <div class="row">
-        <div class="col s12">
-            <div class="indigo lighten-5" id="headerForm">
+    <div class="card row z-depth-3">
+        <div class="col s12 pl0 pr0">
+            <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>Module d'enregistrement d'images.</h1>
                 <p>Mise en pratique PHP : Upload d'images.</p>
             </div>
-            <div class="card row">
+            <div class="row pl10 pr10">
                 <div class="card-stacked col s12 m6 l8">
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
-                            <div class="btn">
+                            <div class="btn blue darken-4">
                                 <span>File</span>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
                                 <input type="file" multiple id="myImg" name="myImg[]" data-preview=".preview">
@@ -129,19 +129,18 @@ function showMsgs ($filesArr) {
                                 <input class="file-path validate" type="text">
                                 <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                            <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Submit
                                 <i class="material-icons right">send</i>
                             </button>
                         </div>
                     </form>
                 </div>
                 <div class="card-image col s12 m6 l4">
-                    <img class="card preview" src="img/no-image-placeholder-2.jpg">
+                    <img class="responsive-img preview" src="img/no-image-placeholder-2.jpg">
                 </div>
                 <div class="card-action col s12">
                     <a href="galery.php">Voir la galerie</a>
                     <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
-            </div>
             </div>
         </div>
     </div>
