@@ -1,5 +1,8 @@
 <?php
-$i = 0;
+define('MAX_UPLOAD_SIZE', '1000000');
+define('IMG', 'img/');
+define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
+var_dump(http_response_code());
 function rearrange($arr){
     foreach( $arr as $key => $all ){
         foreach( $all as $i => $val ){
@@ -8,55 +11,87 @@ function rearrange($arr){
     }
     return $new;
 }
-$files = rearrange($_FILES['myImg']);
-var_dump($files);
-$i = 0;
 
-function testFile() {
-    if (!empty($key['name']) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] && $_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        $tempPath = $_FILES['myImg']['tmp_name'];
-        $actualSize = $_FILES['myImg']['size'];
-        $infoExtension = pathinfo($_FILES['myImg']['name']);
-        $actualExtension = $infoExtension['extension'];
-        $newName = uniqid('img_');
-        $path = './img';
-    
-        $extensionAccepted = ['image/jpeg', 'image/jpg', 'image/png'];
-        $sizeMax = '1000000';
-    
-        
-        do {
-            $i++; //protection
-            $newName = uniqid('img_');
-        } while (file_exists($path . '/' . $newName . '.' . $actualExtension) && $i < 10);
-    
-    
-    
-        if ($actualSize <= $sizeMax  && $actualSize > 0) {    
-            if (in_array(mime_content_type($tempPath), $extensionAccepted) && $i < 10) {
-                $extensionName = preg_split('[/]', mime_content_type($tempPath));
-                $messageValid = 'Le fichier ' . $infoExtension['filename'] . '.' . $extensionName[1] . ' a bien été uploadé';
-                move_uploaded_file($tempPath, $path . '/' . $newName . '.' . $extensionName[1]);
-            } else {
-                $messageInvalid = 'Votre fichier n\'est pas une image';
-               
-            }
-        } else {
-            $messageInvalid = 'Désolé, votre fichier doit faire moins de 1Mo';
-        }
-    
+function testUpload($fileArr) {
+    if (empty($fileArr['tmp_name'] 
+    && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
+    && $_SERVER['REQUEST_METHOD'] == 'POST'))
+    {
+        $test = FALSE;
     } else {
-        
-        if (empty($_POST) && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME']) {
-            $messageInvalid = 'Désolé, votre fichier n\'est pas conforme';
-        }
+        $test = TRUE;
     }
-    if ($i >= 10) {
-        $messageInvalid = 'Le serveur a rencontrer un problème';
+    return $test;
+}
+
+function testFileSize($fileArr) {
+    if (MAX_UPLOAD_SIZE == $_POST['MAX_FILE_SIZE']) {
+        if (MAX_UPLOAD_SIZE > $fileArr['size'] && $fileArr['size'] > 0) {
+            $msg = [TRUE, 'Le fichier ne dépasse pas ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
+        } elseif ($fileArr['size'] == 0){
+            $msg = [FALSE, 'Erreur: la taille du fichier est null'];
+        } else {
+            $msg = [FALSE, 'Erreur: Votre image dépasse les ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
+        }
+    } else {
+        $msg = [FALSE, 'Erreur: La taille maximum du fichier n\'est pas correctement défini'];
+    }
+    return $msg; // [BOOL, MSG]
+}
+
+function testMime($fileArr) {
+    $fileMime = mime_content_type($fileArr['tmp_name']);
+    if (in_array($fileMime, ACCEPTED_MIME)){
+        $msg = [TRUE, 'Le fichier ' . $fileArr['name'] . ' est une image valide', $fileMime];
+    } else {
+        $msg = [FALSE, 'Le fichier ' . $fileArr['name'] . ' n\'a pas un format valide', $fileMime];
+    }
+    return $msg; // [BOOL, MSG, Mime/Type]
+}
+
+if (isset($_FILES['myImg']) 
+&& count($_FILES['myImg']['tmp_name']) > 0 
+&& $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
+&& $_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+    $filesArr = rearrange($_FILES['myImg']);
+    foreach ($filesArr as $key => $fileArr) {
+        if (testUpload($fileArr)) {
+            $mvTest = FALSE;
+            $filesArr[$key] += ['testFileSize' => testFileSize($fileArr)[0],
+                        'msgFileSize' => testFileSize($fileArr)[1],
+                        'testMime' => testMime($fileArr)[0],
+                        'msgMime' => testMime($fileArr)[1],
+                        'mime' => testMime($fileArr)[2]];
+            if ($filesArr[$key]['testFileSize'] && $filesArr[$key]['testMime']){
+                $mimeExt = preg_split('[/]', $filesArr[$key]['mime']);               
+                do {
+                    $newID = uniqid('img_');
+                    $newName = $newID . '.' . $mimeExt[1];
+                } while (file_exists(IMG . $newName));
+                move_uploaded_file($filesArr[$key]['tmp_name'], IMG . $newName);
+            }
+        }
     }
 }
 
+function showMsgs ($filesArr) {
+    foreach ($filesArr as $key => $value) {
+        if ($value['testFileSize'] && $value['testMime']){
+            echo '<p class="light-green-text text-darken-1">';
+            echo $value['name'] . ' : ' . $value['msgFileSize'];
+            echo '<br>';
+            echo $value['msgMime'] . ' et a bien été téléchargé.';
+            echo '</p>';
+        } else {
+            echo '<p class="red-text text-accent-4">';
+            echo $value['name'] . ' : ' . $value['msgFileSize'];
+            echo '<br>';
+            echo $value['msgMime'] . ' Télechargement abandonné';
+            echo '</p>';
+        }      
+    }
+}
 
 ?>
 
@@ -96,8 +131,7 @@ function testFile() {
                             </div>
                         </div>
                         <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
-                        <p class="light-green-text text-darken-1"><?= (isset($messageValid))? $messageValid : '' ?></p>
-                        <p class="red-text text-accent-4"><?= (isset($messageInvalid))? $messageInvalid . '<br>' . 'Votre fichier n\'a pas été uploadé' : '' ?></p>
+                        <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                             <i class="material-icons right">send</i>
                         </button>
