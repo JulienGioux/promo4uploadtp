@@ -1,5 +1,5 @@
 <?php
-define('MAX_UPLOAD_SIZE', '1000000');
+define('MAX_UPLOAD_SIZE', '2000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
 function rearrange($arr){
@@ -114,34 +114,34 @@ function showMsgs ($filesArr) {
                 <h1>Module d'enregistrement d'images.</h1>
                 <p>Mise en pratique PHP : Upload d'images.</p>
             </div>
-            <div class="card horizontal">
-                <div class="card-stacked col s8">
+            <div class="card row">
+                <div class="card-stacked col s12 m6 l8">
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
                             <div class="btn">
                                 <span>File</span>
-                                <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+                                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
                                 <input type="file" multiple id="myImg" name="myImg[]" data-preview=".preview">
                                 
                             </div>
                             <div class="file-path-wrapper">
                                 <input class="file-path validate" type="text">
+                                <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
-                        <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
-                        <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                            <i class="material-icons right">send</i>
-                        </button>
                     </form>
-                    <div class="card-action">
-                        <a href="galery.php">Voir la galerie</a>
-                    </div>
                 </div>
-                <div class="card-image">
-                    <img class="preview" src="img/no-image-placeholder-2.jpg">
+                <div class="card-image col s12 m6 l4">
+                    <img class="card preview" src="img/no-image-placeholder-2.jpg">
                 </div>
+                <div class="card-action col s12">
+                    <a href="galery.php">Voir la galerie</a>
+                    <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
+            </div>
             </div>
         </div>
     </div>
