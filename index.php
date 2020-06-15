@@ -12,9 +12,9 @@ function rearrange($arr){
 }
 
 function testUpload($fileArr) {
-    if (empty($fileArr['tmp_name'] 
+    if (empty($fileArr['tmp_name'])  
     && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
-    && $_SERVER['REQUEST_METHOD'] == 'POST'))
+    && $_SERVER['REQUEST_METHOD'] == 'POST')
     {
         $test = FALSE;
     } else {
@@ -56,7 +56,6 @@ if (isset($_FILES['myImg'])
     $filesArr = rearrange($_FILES['myImg']);
     foreach ($filesArr as $key => $fileArr) {
         if (testUpload($fileArr)) {
-            $mvTest = FALSE;
             $filesArr[$key] += ['testFileSize' => testFileSize($fileArr)[0],
                         'msgFileSize' => testFileSize($fileArr)[1],
                         'testMime' => testMime($fileArr)[0],
@@ -70,6 +69,12 @@ if (isset($_FILES['myImg'])
                 } while (file_exists(IMG . $newName));
                 move_uploaded_file($filesArr[$key]['tmp_name'], IMG . $newName);
             }
+        } else {
+            $filesArr[$key] += ['testFileSize' => 0,
+                        'msgFileSize' => 'Fichier supérieur à ' . MAX_UPLOAD_SIZE /1000000 . ' Mo.',
+                        'testMime' => FALSE,
+                        'msgMime' => 'Erreur fichier non conforme.',
+                        'mime' => 'none/none'];
         }
     }
 }
@@ -91,7 +96,6 @@ function showMsgs ($filesArr) {
         }      
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +126,7 @@ function showMsgs ($filesArr) {
                             <div class="btn blue darken-4 btn-floating pulse">
                                 <span>File</span>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
-                                <input type="file" multiple id="myImg" name="myImg[]" data-preview=".preview">
+                                <input type="file" onchange="myname()" multiple id="myImg" name="myImg[]" data-preview=".preview">
                                 
                             </div>
                             <div class="file-path-wrapper">
@@ -135,7 +139,7 @@ function showMsgs ($filesArr) {
                         </div>
                     </form>
                 </div>
-                <div class="card-image col s12 m6 l4">
+                <div id="imgsPreview" class="card-image col s12 m6 l4">
                     <img class="responsive-img preview" src="img/no-image-placeholder-2.jpg">
                 </div>
                 <div class="card-action col s12">

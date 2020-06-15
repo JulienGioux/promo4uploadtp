@@ -1,18 +1,31 @@
-$(function() {
-	/* 
-	Il faut créer au préalable un élément de type <img class="preview" /> dans votre code html.
-	Il vous permettra d'afficher l'aperçu de l'image.
-	Vous allez pouvoir modifier la taille via un css respectif.
 
-	Pensez également à mettre un data preview à votre input de type file : data-preview=".preview"
-	*/
+let filesInput = document.getElementById(`myImg`);
+let imgsPreview = document.getElementById(`imgsPreview`);
+let nodePreview = document.querySelector(`.preview`);	
+function myname() {
+let files = filesInput.files;
+let i=0;
+for (const key in files) {
+	if (files.hasOwnProperty(key)) {
+		const element = files[key];
+		let oFReader = new FileReader();
+		oFReader.readAsDataURL(element);
+		if (i > 0) {
+			let newNodePreview = nodePreview.cloneNode(true);
+			oFReader.onload	= function(oFREvent) {
+				newNodePreview.setAttribute('src', oFREvent.target.result);
+				imgsPreview.appendChild(newNodePreview);
+				}
+		
+		} else {
+			oFReader.onload	= function(oFREvent) {
+				nodePreview.setAttribute('src', oFREvent.target.result);
+				}
+		}
+	}
+	i++;
+}
 
-	$("input[data-preview]").change(function() {
-		var input = $(this);
-		var oFReader = new FileReader();
-		oFReader.readAsDataURL(this.files[0]);
-		oFReader.onload	= function(oFREvent) {
-			$(input.data('preview')).attr('src', oFREvent.target.result);
-		};
-	});
-})
+}
+		
+
