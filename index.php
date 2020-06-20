@@ -48,6 +48,25 @@ function testMime($fileArr) {
     return $msg; // [BOOL, MSG, Mime/Type]
 }
 
+function showMsgs ($filesArr) {
+    foreach ($filesArr as $key => $value) {
+        if ($value['testFileSize'] && $value['testMime']){
+            echo '<p class="light-green-text text-darken-1">';
+            echo $value['name'] . ' : ' . $value['msgFileSize'];
+            echo '<br>';
+            echo $value['msgMime'] . ' et a bien été téléchargé.';
+            echo '</p>';
+        } else {
+            echo '<p class="red-text text-accent-4">';
+            echo $value['name'] . ' : ' . $value['msgFileSize'];
+            echo '<br>';
+            echo $value['msgMime'] . ' Télechargement abandonné';
+            echo '</p>';
+        }      
+    }
+}
+
+
 if (isset($_FILES['myImg']) 
 && count($_FILES['myImg']['tmp_name']) > 0 
 && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
@@ -79,23 +98,7 @@ if (isset($_FILES['myImg'])
     }
 }
 
-function showMsgs ($filesArr) {
-    foreach ($filesArr as $key => $value) {
-        if ($value['testFileSize'] && $value['testMime']){
-            echo '<p class="light-green-text text-darken-1">';
-            echo $value['name'] . ' : ' . $value['msgFileSize'];
-            echo '<br>';
-            echo $value['msgMime'] . ' et a bien été téléchargé.';
-            echo '</p>';
-        } else {
-            echo '<p class="red-text text-accent-4">';
-            echo $value['name'] . ' : ' . $value['msgFileSize'];
-            echo '<br>';
-            echo $value['msgMime'] . ' Télechargement abandonné';
-            echo '</p>';
-        }      
-    }
-}
+
 ?>
 
 <!DOCTYPE html>
