@@ -1,5 +1,12 @@
 <?php 
 
+$regexLogin = '/^[a-z0-9_-]{3,15}$/';
+$errorMessage = '';
+
+if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset($_POST['password']) && !preg_match($regexLogin, $_POST['password'])) {
+    $errorMessage = 'Login ou mot de passe invalide';
+}
+
 define('MAX_UPLOAD_SIZE', '2000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));

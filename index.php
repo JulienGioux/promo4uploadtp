@@ -22,26 +22,27 @@ require_once 'my-config.php';
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPix</h1>
-                <p>Mise en pratique PHP : Upload d'images.</p>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input value="<?= isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '' ?>" id="lastName" type="text" name="lastName" aria-describedby="lastName" pattern="<?= substr($regexString, 1, -1) ?>" class="<?= isset($_POST['lastName']) && !$checkLastName ? 'invalid' : 'validate' ?>" required>
-                    <label for="lastName">Login<span class="red-text text-accent-4">*</span></label>
-                    <!-- <span class="helper-text" data-error="<?= isset($_POST['lastName']) && !$checkLastName ? 'Veuillez renseigner ce champ. Ex: Dupont' : '' ?>"></span> -->
-                    <span class="helper-text" data-error="<?= isset($_POST['button']) && empty($_POST['lastName']) && !preg_match($regexString, $_POST['lastName']) ? 'Veuillez renseigner ce champ' : 'Veuillez renseigner ce champ. Ex: Dupont' ?>"></span>
+            <form action="" method="post" novalidate class="col s8  offset-s2">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="<?= isset($_POST['login']) && empty($_POST['password']) ? $_POST['login'] : '' ?>" id="login" type="text" name="login" aria-describedby="login" pattern="<?= substr($regexLogin, 1, -1) ?>" class="<?= isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) && !preg_match($regexLogin, $_POST['password']) ? 'invalid' : 'validate' ?>" required>
+                        <label for="login">Login<span class="red-text text-accent-4">*</span></label>
+                        <span class="helper-text" data-error="<?= isset($_POST['login']) && empty($_POST['login']) ? 'Veuillez renseigner ce champ' : '' ?>"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input value="<?= isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '' ?>" id="firstName" pattern="<?= substr($regexString, 1, -1) ?>" type="text" name="firstName" aria-describedby="firstName" class="<?= isset($_POST['firstName']) && !$checkFirstName ? 'invalid' : 'validate' ?>" required>
-                    <label for="firstName">Password<span class="red-text text-accent-4">*</span></label>
-                    <span class="helper-text" data-error="<?= isset($_POST['firstName']) && !$checkFirstName ? (empty($_POST['firstName']) ? 'Veuillez renseigner ce champ' : 'Veuillez respecter le format. Ex: Jean') : '' ?>"></span>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input value="<?= isset($_POST['password']) && empty($_POST['login']) ? $_POST['password'] : '' ?>" id="password" pattern="<?= substr($regexLogin, 1, -1) ?>" type="password" name="password" aria-describedby="password" class="<?= isset($_POST['password']) && !preg_match($regexLogin, $_POST['login']) && !preg_match($regexLogin, $_POST['password']) ? 'invalid' : 'validate' ?>" required>
+                        <label for="password">Password<span class="red-text text-accent-4">*</span></label>
+                        <span class="helper-text" data-error="<?= isset($_POST['password']) && empty($_POST['password']) ? 'Veuillez renseigner ce champ' : '' ?>"></span>
+                    </div>
                 </div>
-            </div>
-            <button class="btn waves-effect waves-light" name="button" type="submit">Envoyer
-                <i class="material-icons right">Connexion</i>
-            </button>
+                <p class="helper-text red-text text-accent-4"><?= !empty($_POST['login']) && !empty($_POST['password']) ? $errorMessage : '' ?></p>
+                <button class="btn waves-effect waves-light" name="button" type="submit">Connexion
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
             <!-- <div class="row pl10 pr10">
                 <div class="card-stacked col s12 m6 l8">
                     <form action="index.php" method="post" enctype="multipart/form-data">
