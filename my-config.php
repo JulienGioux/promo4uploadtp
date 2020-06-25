@@ -3,6 +3,22 @@
 define('MAX_UPLOAD_SIZE', '2000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
+
+$ArrUsers = [
+    'admin' => '$2y$10$3gdUfYKl0zoAe1vCWxT2/OsJj5u65.TL9fLg2En5OxssIQn4n7Ioe',
+    'guest' => '$2y$10$wj4BR.SutwzkBBy3JpOhmezAHyTGr..LK4FSwveqaVvbFxE6PPTqW'
+];
+
+function verifPwd ($pwd, $user) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur
+    $hashedPwd = $ArrUsers[$user];
+    //faire ici contrôles suplémentaires
+   return password_verify($pwd, $hashedPwd);
+}
+
+
+echo verifPwd('admin', 'admin'); //test Appel de fonction pour vérifier (pwd, usr)
+
+
 function rearrange($arr){
     foreach( $arr as $key => $all ){
         foreach( $all as $i => $val ){
