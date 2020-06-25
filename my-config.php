@@ -1,12 +1,5 @@
 <?php 
 
-$regexLogin = '/^[a-z0-9_-]{3,15}$/';
-$errorMessage = '';
-
-if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset($_POST['password']) && !preg_match($regexLogin, $_POST['password'])) {
-    $errorMessage = 'Login ou mot de passe invalide';
-}
-
 define('MAX_UPLOAD_SIZE', '2000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
@@ -15,6 +8,13 @@ define('ARR_USERS' , array(
     'admin' => '$2y$10$3gdUfYKl0zoAe1vCWxT2/OsJj5u65.TL9fLg2En5OxssIQn4n7Ioe',
     'guest' => '$2y$10$wj4BR.SutwzkBBy3JpOhmezAHyTGr..LK4FSwveqaVvbFxE6PPTqW'
 ));
+
+$regexLogin = '/^[a-z0-9_-]{3,15}$/';
+$errorMessage = '';
+
+if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset($_POST['password']) && !preg_match($regexLogin, $_POST['password'])) {
+    $errorMessage = 'Login ou mot de passe invalide';
+}
 
 function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
     $hashedPwd = $src[$user];
