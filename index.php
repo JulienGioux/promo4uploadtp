@@ -24,7 +24,8 @@ require_once 'my-config.php';
                 <p>Mise en pratique PHP : Upload d'images.</p>
                 <h2 class="right-align"><?= (isset($_SESSION['name']) && !empty($_SESSION['name'])) ? $_SESSION['name'] : ''; ?></h2>
             </div>
-            <form action="index.php" method="post" novalidate class="col s8  offset-s2">
+            <form action="" method="post" novalidate class="col s8  offset-s2">
+                <p class="helper-text red-text text-accent-4"><?= !empty($_POST['login']) && !empty($_POST['password']) ? $errorMessage : '' ?></p>
                 <div class="row">
                     <div class="input-field col s12">
                         <input value="<?= isset($_POST['login']) && empty($_POST['password']) ? $_POST['login'] : '' ?>" id="login" type="text" name="login" aria-describedby="login" pattern="<?= substr($regexLogin, 1, -1) ?>" class="<?= isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) && !preg_match($regexLogin, $_POST['password']) ? 'invalid' : 'validate' ?>" required>
@@ -39,8 +40,7 @@ require_once 'my-config.php';
                         <span class="helper-text" data-error="<?= isset($_POST['password']) && empty($_POST['password']) ? 'Veuillez renseigner ce champ' : '' ?>"></span>
                     </div>
                 </div>
-                <p class="helper-text red-text text-accent-4"><?= !empty($_POST['login']) && !empty($_POST['password']) ? $errorMessage : '' ?></p>
-                <button class="btn waves-effect waves-light" name="button" type="submit">Connexion
+                <button class="btn waves-effect waves-light blue darken-4" name="button" type="submit">Connexion
                     <i class="material-icons right">send</i>
                 </button>
             </form>
