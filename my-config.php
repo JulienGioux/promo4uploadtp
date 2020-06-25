@@ -19,11 +19,18 @@ if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset
 function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
     $hashedPwd = $src[$user];
     //faire ici contrôles suplémentaires
-   return password_verify($pwd, $hashedPwd);
+    $boolConnected = password_verify($pwd, $hashedPwd);
+    // if ($boolConnected === 1) {
+        session_regenerate_id();
+        echo SID;
+        $_SESSION['name'] = $user;
+    // }
+    
+//    return $boolConnected;
 }
 
 
-echo verifPwd('admin', 'admin'); //test Appel de fonction pour vérifier (pwd, usr)
+verifPwd('admin', 'admin'); //test Appel de fonction pour vérifier (pwd, usr)
 
 
 function rearrange($arr){
