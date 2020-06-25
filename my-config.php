@@ -20,17 +20,19 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
     $hashedPwd = $src[$user];
     //faire ici contrôles suplémentaires
     $boolConnected = password_verify($pwd, $hashedPwd);
-    // if ($boolConnected === 1) {
+    if ($boolConnected == 1) {
         session_regenerate_id();
         echo SID;
         $_SESSION['name'] = $user;
-    // }
+    }
     
 //    return $boolConnected;
 }
 
-
-verifPwd('admin', 'admin'); //test Appel de fonction pour vérifier (pwd, usr)
+if (isset($_POST['login']) && !empty($_POST['password'])) {
+    verifPwd($_POST['password'], $_POST['login']);
+}
+ //test Appel de fonction pour vérifier (pwd, usr)
 
 
 function rearrange($arr){

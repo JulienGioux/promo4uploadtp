@@ -22,9 +22,9 @@ require_once 'my-config.php';
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPix</h1>
                 <p>Mise en pratique PHP : Upload d'images.</p>
-                <h2 class="right-align"><?= $_SESSION['name']; ?></h2>
+                <h2 class="right-align"><?= (isset($_SESSION['name']) && !empty($_SESSION['name'])) ? $_SESSION['name'] : ''; ?></h2>
             </div>
-            <form action="" method="post" novalidate class="col s8  offset-s2">
+            <form action="index.php" method="post" novalidate class="col s8  offset-s2">
                 <div class="row">
                     <div class="input-field col s12">
                         <input value="<?= isset($_POST['login']) && empty($_POST['password']) ? $_POST['login'] : '' ?>" id="login" type="text" name="login" aria-describedby="login" pattern="<?= substr($regexLogin, 1, -1) ?>" class="<?= isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) && !preg_match($regexLogin, $_POST['password']) ? 'invalid' : 'validate' ?>" required>
