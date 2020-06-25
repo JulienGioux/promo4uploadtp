@@ -17,15 +17,24 @@ if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset
 }
 
 function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
-    $hashedPwd = $src[$user];
-    //faire ici contrôles suplémentaires
-    $boolConnected = password_verify($pwd, $hashedPwd);
-    if ($boolConnected == 1) {
-        session_regenerate_id();
-        echo SID;
-        $_SESSION['name'] = $user;
+    if (isset($src[$user]) && !empty($src[$user])) {
+        $hashedPwd = $src[$user];
+        //faire ici contrôles suplémentaires
+        $boolConnected = password_verify($pwd, $hashedPwd);
+        if ($boolConnected == 1) {
+            session_regenerate_id(true);
+            $_SESSION['name'] = $user;
+        }else {
+            session_destroy();
+        }
+    } else {
+        session_destroy();
     }
-    
+    if ($_COOKIE["PHPSESSID"] === session_id()) {
+        return TRUE;
+    } else { 
+        return FALSE;
+    }
 //    return $boolConnected;
 }
 
