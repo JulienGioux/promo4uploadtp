@@ -1,103 +1,6 @@
 <?php
-define('MAX_UPLOAD_SIZE', '2000000');
-define('IMG', 'img/');
-define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
-function rearrange($arr){
-    foreach( $arr as $key => $all ){
-        foreach( $all as $i => $val ){
-            $new[$i][$key] = $val;   
-        }   
-    }
-    return $new;
-}
 
-function testUpload($fileArr) {
-    if (empty($fileArr['tmp_name'])  
-    && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
-    && $_SERVER['REQUEST_METHOD'] == 'POST')
-    {
-        $test = FALSE;
-    } else {
-        $test = TRUE;
-    }
-    return $test;
-}
-
-function testFileSize($fileArr) {
-    if (MAX_UPLOAD_SIZE == $_POST['MAX_FILE_SIZE']) {
-        if (MAX_UPLOAD_SIZE > $fileArr['size'] && $fileArr['size'] > 0) {
-            $msg = [TRUE, 'Le fichier ne dépasse pas ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
-        } elseif ($fileArr['size'] == 0){
-            $msg = [FALSE, 'Erreur: la taille du fichier est null'];
-        } else {
-            $msg = [FALSE, 'Erreur: Votre image dépasse les ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
-        }
-    } else {
-        $msg = [FALSE, 'Erreur: La taille maximum du fichier n\'est pas correctement défini'];
-    }
-    return $msg; // [BOOL, MSG]
-}
-
-function testMime($fileArr) {
-    $fileMime = mime_content_type($fileArr['tmp_name']);
-    if (in_array($fileMime, ACCEPTED_MIME)){
-        $msg = [TRUE, 'Le fichier ' . $fileArr['name'] . ' est une image valide', $fileMime];
-    } else {
-        $msg = [FALSE, 'Le fichier ' . $fileArr['name'] . ' n\'a pas un format valide', $fileMime];
-    }
-    return $msg; // [BOOL, MSG, Mime/Type]
-}
-
-function showMsgs ($filesArr) {
-    foreach ($filesArr as $key => $value) {
-        if ($value['testFileSize'] && $value['testMime']){
-            echo '<p class="light-green-text text-darken-1">';
-            echo $value['name'] . ' : ' . $value['msgFileSize'];
-            echo '<br>';
-            echo $value['msgMime'] . ' et a bien été téléchargé.';
-            echo '</p>';
-        } else {
-            echo '<p class="red-text text-accent-4">';
-            echo $value['name'] . ' : ' . $value['msgFileSize'];
-            echo '<br>';
-            echo $value['msgMime'] . ' Télechargement abandonné';
-            echo '</p>';
-        }      
-    }
-}
-
-
-if (isset($_FILES['myImg']) 
-&& count($_FILES['myImg']['tmp_name']) > 0 
-&& $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
-&& $_SERVER['REQUEST_METHOD'] == 'POST') 
-{
-    $filesArr = rearrange($_FILES['myImg']);
-    foreach ($filesArr as $key => $fileArr) {
-        if (testUpload($fileArr)) {
-            $filesArr[$key] += ['testFileSize' => testFileSize($fileArr)[0],
-                        'msgFileSize' => testFileSize($fileArr)[1],
-                        'testMime' => testMime($fileArr)[0],
-                        'msgMime' => testMime($fileArr)[1],
-                        'mime' => testMime($fileArr)[2]];
-            if ($filesArr[$key]['testFileSize'] && $filesArr[$key]['testMime']){
-                $mimeExt = preg_split('[/]', $filesArr[$key]['mime']);               
-                do {
-                    $newID = uniqid('img_');
-                    $newName = $newID . '.' . $mimeExt[1];
-                } while (file_exists(IMG . $newName));
-                move_uploaded_file($filesArr[$key]['tmp_name'], IMG . $newName);
-            }
-        } else {
-            $filesArr[$key] += ['testFileSize' => 0,
-                        'msgFileSize' => 'Fichier supérieur à ' . MAX_UPLOAD_SIZE /1000000 . ' Mo.',
-                        'testMime' => FALSE,
-                        'msgMime' => 'Erreur fichier non conforme.',
-                        'mime' => 'none/none'];
-        }
-    }
-}
-
+require_once 'my-config.php';
 
 ?>
 
@@ -111,17 +14,35 @@ if (isset($_FILES['myImg'])
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="assets/uploadPreview.css">
     <link rel="stylesheet" href="assets/style.css">
-    <title>TP Upload</title>
+    <title>TP Upload V2</title>
 </head>
 
 <body class="container">
     <div class="card row z-depth-3">
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
-                <h1>Module d'enregistrement d'images.</h1>
+                <h1>AllPix</h1>
                 <p>Mise en pratique PHP : Upload d'images.</p>
             </div>
-            <div class="row pl10 pr10">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input value="<?= isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : '' ?>" id="lastName" type="text" name="lastName" aria-describedby="lastName" pattern="<?= substr($regexString, 1, -1) ?>" class="<?= isset($_POST['lastName']) && !$checkLastName ? 'invalid' : 'validate' ?>" required>
+                    <label for="lastName">Login<span class="red-text text-accent-4">*</span></label>
+                    <!-- <span class="helper-text" data-error="<?= isset($_POST['lastName']) && !$checkLastName ? 'Veuillez renseigner ce champ. Ex: Dupont' : '' ?>"></span> -->
+                    <span class="helper-text" data-error="<?= isset($_POST['button']) && empty($_POST['lastName']) && !preg_match($regexString, $_POST['lastName']) ? 'Veuillez renseigner ce champ' : 'Veuillez renseigner ce champ. Ex: Dupont' ?>"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input value="<?= isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : '' ?>" id="firstName" pattern="<?= substr($regexString, 1, -1) ?>" type="text" name="firstName" aria-describedby="firstName" class="<?= isset($_POST['firstName']) && !$checkFirstName ? 'invalid' : 'validate' ?>" required>
+                    <label for="firstName">Password<span class="red-text text-accent-4">*</span></label>
+                    <span class="helper-text" data-error="<?= isset($_POST['firstName']) && !$checkFirstName ? (empty($_POST['firstName']) ? 'Veuillez renseigner ce champ' : 'Veuillez respecter le format. Ex: Jean') : '' ?>"></span>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" name="button" type="submit">Envoyer
+                <i class="material-icons right">Connexion</i>
+            </button>
+            <!-- <div class="row pl10 pr10">
                 <div class="card-stacked col s12 m6 l8">
                     <form action="index.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
@@ -148,7 +69,7 @@ if (isset($_FILES['myImg'])
                 <div class="card-action col s12">
                     <a href="galery.php">Voir la galerie</a>
                     <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
-            </div>
+            </div> -->
         </div>
     </div>
 
