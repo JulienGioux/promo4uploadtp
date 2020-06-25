@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once 'my-config.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +22,7 @@ require_once 'my-config.php';
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPix</h1>
                 <p>Mise en pratique PHP : Upload d'images.</p>
+                <h2 class="right-align"><?= $_SESSION['name']; ?></h2>
             </div>
             <div class="row">
                 <div class="input-field col s12">
