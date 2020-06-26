@@ -21,8 +21,6 @@ require_once 'my-config.php';
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPix</h1>
-                <p>Mise en pratique PHP : Upload d'images.</p>
-                <h2 class="right-align"><?= (isset($_SESSION['name']) && !empty($_SESSION['name'])) ? $_SESSION['name'] : ''; ?></h2>
             </div>
             <form action="" method="post" novalidate class="col s8  offset-s2">
                 <p class="helper-text red-text text-accent-4"><?= !empty($_POST['login']) && !empty($_POST['password']) ? $errorMessage : '' ?></p>

@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+var_dump($_SESSION);
 
 function updateGalery() {
     $imgGalery = array_diff(scandir('img'), array('..', '.'));

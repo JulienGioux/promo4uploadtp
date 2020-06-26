@@ -16,7 +16,12 @@ if (isset($_POST['login']) && !preg_match($regexLogin, $_POST['login']) || isset
     $errorMessage = 'Login ou mot de passe invalide';
 }
 
+if (isset($_POST['login']) && preg_match($regexLogin, $_POST['login']) && isset($_POST['password']) && preg_match($regexLogin, $_POST['password'])) {
+    verifPwd ($_POST['password'], $_POST['login'], $src = ARR_USERS);
+}
+
 function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
+    global $errorMessage;
     if (isset($src[$user]) && !empty($src[$user])) {
         $hashedPwd = $src[$user];
         //faire ici contrôles suplémentaires
@@ -24,11 +29,17 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
         if ($boolConnected == 1) {
             session_regenerate_id(true);
             $_SESSION['name'] = $user;
+            if ($_SESSION['name'] == 'admin') {
+                header('Location: dashboard.php');
+            }
+            if ($_SESSION['name'] == 'guest') {
+                header('Location: galery.php');
+            }
         }else {
             session_destroy();
         }
     } else {
-        session_destroy();
+        $errorMessage = 'Login ou mot de passe invalide';
     }
     if ($_COOKIE["PHPSESSID"] === session_id()) {
         return TRUE;
@@ -37,6 +48,28 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
     }
 //    return $boolConnected;
 }
+
+// function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
+//     if (isset($src[$user]) && !empty($src[$user])) {
+//         $hashedPwd = $src[$user];
+//         //faire ici contrôles suplémentaires
+//         $boolConnected = password_verify($pwd, $hashedPwd);
+//         if ($boolConnected == 1) {
+//             session_regenerate_id(true);
+//             $_SESSION['name'] = $user;
+//         }else {
+//             session_destroy();
+//         }
+//     } else {
+//         session_destroy();
+//     }
+//     if ($_COOKIE["PHPSESSID"] === session_id()) {
+//         return TRUE;
+//     } else { 
+//         return FALSE;
+//     }
+// //    return $boolConnected;
+// }
 
 if (isset($_POST['login']) && !empty($_POST['password'])) {
     verifPwd($_POST['password'], $_POST['login']);

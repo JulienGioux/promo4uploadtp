@@ -1,6 +1,10 @@
 <?php 
 
 session_start();
+var_dump($_SESSION);
+if ($_SESSION['name'] != 'admin') {
+    header('Location: no-allowed.php');
+}
 
 ?>
 <!DOCTYPE html>
@@ -19,7 +23,7 @@ session_start();
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPix</h1>
-                <h2>Bonjour, ...</h2>
+                <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
                 <p>Quota : ...</p>
                 <p>Total image(s) : ...</p>
             </div>
