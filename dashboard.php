@@ -8,9 +8,74 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/uploadPreview.css">
+    <link rel="stylesheet" href="assets/style.css">
     <title>Dashboard</title>
 </head>
-<body>
-    
+<body class="container">
+    <div class="card row z-depth-3">
+        <div class="col s12 pl0 pr0">
+            <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
+                <h1>AllPix</h1>
+                <h2>Bonjour, ...</h2>
+                <p>Quota : ...</p>
+                <p>Total image(s) : ...</p>
+            </div>
+
+            <?php
+
+            if (isset($_POST['upload'])) {
+
+            ?>
+
+            <div class="row pl10 pr10">
+                <div class="card-stacked col s12 m6 l8">
+                    <form action="index.php" method="post" enctype="multipart/form-data">
+                        <div class="file-field input-field">
+                            <p>Veuillez choisir une image :</p>
+                            <div class="btn blue darken-4 btn-floating pulse">
+                                <span>File</span>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="2000000">
+                                <input type="file" onchange="myname()" multiple id="myImg" name="myImg[]" data-preview=".preview">
+                                
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                                <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
+                            </div>
+                            <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Envoyer
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div id="imgsPreview" class="card-image col s12 m6 l4">
+                    <img class="responsive-img preview" src="img/no-image-placeholder-2.jpg">
+                </div>
+                <div class="card-action col s12">
+                    <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
+                    <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
+            </div>
+
+            <?php } else { ?>
+            
+                <div class="blue darken-4 white-text pt20 pl20 pr20 pb20">
+                    <form action="" method="post" novalidate class="col s8  offset-s2">
+                        <button class="white blue-text text-darken-4" name="upload" type="submit">Upload image</button>
+                        <button class="white blue-text text-darken-4" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button>
+                    </form> 
+                </div>
+
+            <?php } ?>
+
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="assets/uploadPreview.js"></script>
 </body>
 </html>
