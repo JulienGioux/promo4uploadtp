@@ -30,13 +30,15 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
             session_regenerate_id(true);
             $_SESSION['name'] = $user;
             if ($_SESSION['name'] == 'admin') {
+                header("Status: 308 Moved Permanently", false, 308);
                 header('Location: dashboard.php');
+                exit();
             }
             if ($_SESSION['name'] == 'guest') {
+                header("Status: 308 Moved Permanently", false, 308);
                 header('Location: galery.php');
+                exit();
             }
-        }else {
-            session_destroy();
         }
     } else {
         $errorMessage = 'Login ou mot de passe invalide';
@@ -171,4 +173,31 @@ if (isset($_FILES['myImg'])
                         'mime' => 'none/none'];
         }
     }
+}
+
+$imgGalery = array_diff(scandir('img'), array('..', '.'));
+
+function updateGalery($imgGalery) {
+
+    foreach($imgGalery as $img) {
+        echo
+        '<div class="col s6 headline">
+            <img src="img/'. $img .'" itemprop="thumbnail" class="imgGalery" alt="Image description" />
+        </div>';
+    }
+}
+
+function sizeGalery($imgGalery) {
+    $totalImgSize = 0;
+    $totalGalerySize = '';
+    foreach($imgGalery as $img) {
+        $imgSize = filesize('img/'.$img);
+        $totalImgSize += $imgSize;
+    }
+    if ($totalImgSize > 1000000) {
+        $totalGalerySize = round($totalImgSize /1000000) . ' mo / 50 mo';
+    } else {
+        $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
+    }
+    echo $totalGalerySize;
 }

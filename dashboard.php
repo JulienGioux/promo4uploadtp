@@ -1,9 +1,13 @@
 <?php 
 
 session_start();
-var_dump($_SESSION);
+
+require_once 'my-config.php';
+
 if ($_SESSION['name'] != 'admin') {
+    header("Status: 301 Moved Permanently", false, 301);
     header('Location: no-allowed.php');
+    exit();
 }
 
 ?>
@@ -22,10 +26,10 @@ if ($_SESSION['name'] != 'admin') {
     <div class="card row z-depth-3">
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
-                <h1>AllPix</h1>
-                <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
-                <p>Quota : ...</p>
-                <p>Total image(s) : ...</p>
+                <h1>AllPIX</h1>
+                <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? ucfirst($_SESSION['name']) : '' ?></h2>
+                <p>Quota : <?= sizeGalery($imgGalery) ?></p>
+                <p>Total image(s) : <?= count($imgGalery) ?></p>
             </div>
 
             <?php
@@ -61,20 +65,22 @@ if ($_SESSION['name'] != 'admin') {
                 <div class="card-action col s12">
                     <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
                     <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
+                </div>
             </div>
 
             <?php } else { ?>
             
-                <div class="blue darken-4 white-text pt20 pl20 pr20 pb20">
-                    <form action="" method="post" novalidate class="col s8  offset-s2">
-                        <button class="white blue-text text-darken-4" name="upload" type="submit">Upload image</button>
-                        <button class="white blue-text text-darken-4" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button>
-                    </form> 
+                <form action="" method="post" novalidate class="col s8  offset-s2">
+                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="upload" type="submit">Upload image</button></p>
+                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button></p>
+                </form>
+                <div class="card-action col s12">
+                    <a class="blue-text text-darken-4 " href="dashboard.php">Déconnection</a>
                 </div>
 
             <?php } ?>
 
-        </div>
+        
     </div>
 
 

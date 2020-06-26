@@ -2,6 +2,25 @@ h1{
 	word-wrap: break-word;
 	text-align: center;
 }
+h2 {
+	font-size: 2rem;
+	text-align: center;
+}
+#btnIndex {
+	left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btnDashboard {
+	left: 50%;
+    transform: translate(-50%);
+}
+.btnDashboard a {
+	text-decoration: none;
+	color: white;
+}
+.container {
+	background: aliceblue;
+}
  @media screen and (max-width: 600px) {
     h1 {
         margin: 0;

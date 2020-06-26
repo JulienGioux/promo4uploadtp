@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_destroy();
 require_once 'my-config.php';
 ?>
 
@@ -21,7 +22,7 @@ require_once 'my-config.php';
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPIX</h1>
-                <p>Bonjour, vous n'avez pas les droits nécessaires pour accéder à cette page</p>
+                <p>Vous avez bien été déconnecté</p>
                 <a href="index.php" class="white-text">Accueil</a>
             </div>
         </div>

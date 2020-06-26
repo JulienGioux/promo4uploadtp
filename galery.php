@@ -1,27 +1,7 @@
 <?php
 
 session_start();
-var_dump($_SESSION);
-
-function updateGalery() {
-    $imgGalery = array_diff(scandir('img'), array('..', '.'));
-
-    foreach($imgGalery as $img) {
-        // echo '<img class="headline materialboxed" src="img/'. $img .'">';
-        echo
-        '<figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-            <img src="img/'. $img .'" itemprop="thumbnail" class="imgGalery" alt="Image description" />
-        <figcaption itemprop="caption description">Image caption</figcaption>
-    </figure>';
-        // '<div class="col s6 headline">
-        //     <div class="card">
-        //         <div class="card-image">
-        //         <img class="responsive-img materialboxed" src="img/'. $img .'">
-        //         </div>
-        //     </div>
-        // </div>';
-    }
-}
+require_once 'my-config.php';
  
 ?>
 
@@ -31,6 +11,7 @@ function updateGalery() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="assets/dist/photoswipe.css">
     <link rel="stylesheet" href="assets/dist/default-skin/default-skin.css">
     <link rel="stylesheet" href="assets/uploadPreview.css">
@@ -39,20 +20,15 @@ function updateGalery() {
 </head>
 
 <body class="container">
-
-    <div class="row">
-        <h1>Galerie d'images</h1>
-    </div>
-    <div class="row">
-    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-
-
-
-
-
-            <?= updateGalery() ?>
+    <div class="card row z-depth-3">
+        <div class="col s12 pl0 pr0">
+            <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
+                <h1 class="white-text">allPIX</h1>
+                <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
             </div>
-    </div>
+            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+                <?= updateGalery($imgGalery) ?>
+            </div>
 
 
 
