@@ -185,7 +185,7 @@ function updateGalery($imgGalery) {
     <div class="col s6 headline">
       <div class="card">
         <div class="card-image imgCards">
-          <img src="img/'. $img .'">
+          <img src="img/'. $img .'" data-lightbox="roadtrip">
         </div>
       </div>
     </div>';
@@ -203,7 +203,7 @@ function sizeGalery($imgGalery) {
         $totalImgSize += $imgSize;
     }
     if ($totalImgSize > 1000000) {
-        $totalGalerySize = round($totalImgSize /1000000) . ' mo / 50 mo';
+        $totalGalerySize = round($totalImgSize /1000000, 2) . ' mo / 50 mo';
     } else {
         $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
     }

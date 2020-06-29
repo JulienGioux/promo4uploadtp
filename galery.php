@@ -34,11 +34,15 @@ require_once 'my-config.php';
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.materialboxed');
-            var options = {inDuration: 400, outDuration: 300};
-            var instances = M.Materialbox.init(elems, options);
-        });
+        lightbox.option({
+            'resizeDuration': 200,
+            'wrapAround': true
+        })
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     var elems = document.querySelectorAll('.materialboxed');
+        //     var options = {inDuration: 400, outDuration: 300};
+        //     var instances = M.Materialbox.init(elems, options);
+        // });
     </script>
 </body>
 

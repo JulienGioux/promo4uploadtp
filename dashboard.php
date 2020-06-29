@@ -34,13 +34,13 @@ if ($_SESSION['name'] != 'admin') {
 
             <?php
 
-            if (isset($_POST['upload'])) {
+            if (isset($_POST['upload']) || isset($filesArr) && testUpload($fileArr)) {
 
             ?>
 
             <div class="row pl10 pr10">
                 <div class="card-stacked col s12 m6 l8">
-                    <form action="index.php" method="post" enctype="multipart/form-data">
+                    <form action="dashboard.php" method="post" enctype="multipart/form-data">
                         <div class="file-field input-field">
                             <p>Veuillez choisir une image :</p>
                             <div class="btn blue darken-4 btn-floating pulse">
@@ -53,6 +53,7 @@ if ($_SESSION['name'] != 'admin') {
                                 <input class="file-path validate" type="text">
                                 <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
+                            <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                             <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Envoyer
                                 <i class="material-icons right">send</i>
                             </button>
@@ -64,7 +65,6 @@ if ($_SESSION['name'] != 'admin') {
                 </div>
                 <div class="card-action col s12">
                     <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
-                    <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                 </div>
             </div>
 
