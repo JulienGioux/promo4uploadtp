@@ -24,7 +24,7 @@ require_once 'my-config.php';
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1 class="white-text">allPIX</h1>
-                <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
+                <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' || isset($_SESSION['name']) && $_SESSION['name'] == 'guest' ? ucfirst($_SESSION['name']) : '' ?></h2>
             </div>
             <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 
@@ -35,7 +35,7 @@ require_once 'my-config.php';
             <div class="col s6 headline">
                <div class="card">
                  <div class="card-image imgCards">
-                    <img class="materialboxed" src="<?= 'img/'. $img ?>">
+                    <img class="responsive-img materialboxed" src="<?= 'img/'. $img ?>">
                  </div>
                </div>
             </div>
@@ -43,6 +43,19 @@ require_once 'my-config.php';
             <?php } ?>
 
             </div>
+
+            <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'admin') { ?>
+            <div class="card-action col s12">
+                <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
+            </div>
+            <?php } ?>
+
+            <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'guest') { ?>
+            <div class="card-action col s12">
+                <a class="blue-text text-darken-4 " href="deconnection.php">Déconnection</a>
+            </div>
+            <?php } ?>
+
         </div>
     </div>
     
