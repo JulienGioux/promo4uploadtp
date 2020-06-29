@@ -64,6 +64,7 @@ if ($_SESSION['name'] != 'admin') {
                 </div>
                 <div class="card-action col s12">
                     <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
+                    <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                 </div>
             </div>
 
