@@ -20,7 +20,6 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="assets/uploadPreview.css">
     <link rel="stylesheet" href="assets/style.css">
-    <!-- <link href="assets/lightbox.css" rel="stylesheet" /> -->
     <title>TP Upload - Galerie</title>
 </head>
 
@@ -29,7 +28,7 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1 class="white-text">allPIX</h1>
-                <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
+                <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' || isset($_SESSION['name']) && $_SESSION['name'] == 'guest' ? ucfirst($_SESSION['name']) : '' ?></h2>
             </div>
             <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 
@@ -40,7 +39,7 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
             <div class="col s6 headline">
                <div class="card">
                  <div class="card-image imgCards">
-                    <img class="materialboxed" src="<?= 'img/'. $img ?>">
+                    <img class="responsive-img materialboxed" src="<?= 'img/'. $img ?>">
                  </div>
                </div>
             </div>
@@ -48,18 +47,25 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
             <?php } ?>
 
             </div>
+
+            <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'admin') { ?>
+            <div class="card-action col s12">
+                <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
+            </div>
+            <?php } ?>
+
+            <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'guest') { ?>
+            <div class="card-action col s12">
+                <a class="blue-text text-darken-4 " href="deconnection.php">Déconnection</a>
+            </div>
+            <?php } ?>
+
         </div>
     </div>
-    
-    <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- <script src="assets/lightbox.js"></script> -->
     <script>
-        // lightbox.option({
-        //     'resizeDuration': 200,
-        //     'wrapAround': true
-        // })
+
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.materialboxed');
             var options = {inDuration: 400, outDuration: 300};

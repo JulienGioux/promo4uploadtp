@@ -51,32 +51,11 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
 //    return $boolConnected;
 }
 
-// function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vérifier $user: nom d'utilisateur $src: source de données user/mdp (default= $ArrUsers)
-//     if (isset($src[$user]) && !empty($src[$user])) {
-//         $hashedPwd = $src[$user];
-//         //faire ici contrôles suplémentaires
-//         $boolConnected = password_verify($pwd, $hashedPwd);
-//         if ($boolConnected == 1) {
-//             session_regenerate_id(true);
-//             $_SESSION['name'] = $user;
-//         }else {
-//             session_destroy();
-//         }
-//     } else {
-//         session_destroy();
-//     }
-//     if ($_COOKIE["PHPSESSID"] === session_id()) {
-//         return TRUE;
-//     } else { 
-//         return FALSE;
-//     }
-// //    return $boolConnected;
-// }
 
 if (isset($_POST['login']) && !empty($_POST['password'])) {
     verifPwd($_POST['password'], $_POST['login']);
 }
- //test Appel de fonction pour vérifier (pwd, usr)
+
 
 
 function rearrange($arr){
@@ -192,4 +171,3 @@ function sizeGalery($imgGalery) {
     }
     echo $totalGalerySize;
 }
-var_dump($_POST);
