@@ -103,7 +103,7 @@ function testUpload($fileArr) {
 function testFileSize($fileArr) {
     if (MAX_UPLOAD_SIZE == $_POST['MAX_FILE_SIZE']) {
         if (MAX_UPLOAD_SIZE > $fileArr['size'] && $fileArr['size'] > 0) {
-            $msg = [TRUE, 'Le fichier ne dépasse pas ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
+            $msg = [TRUE, 'Le fichier est dans la limite de ' . MAX_UPLOAD_SIZE / 1000000 . ' Mo.'];
         } elseif ($fileArr['size'] == 0){
             $msg = [FALSE, 'Erreur: la taille du fichier est null'];
         } else {
@@ -209,3 +209,4 @@ function sizeGalery($imgGalery) {
     }
     echo $totalGalerySize;
 }
+var_dump($_POST);
