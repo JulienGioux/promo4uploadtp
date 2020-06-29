@@ -53,6 +53,7 @@ if ($_SESSION['name'] != 'admin') {
                                 <input class="file-path validate" type="text">
                                 <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
+                            <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                             <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Envoyer
                                 <i class="material-icons right">send</i>
                             </button>
