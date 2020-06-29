@@ -13,9 +13,9 @@ require_once 'my-config.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="assets/lightbox.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/uploadPreview.css">
     <link rel="stylesheet" href="assets/style.css">
+    <!-- <link href="assets/lightbox.css" rel="stylesheet" /> -->
     <title>TP Upload - Galerie</title>
 </head>
 
@@ -27,29 +27,40 @@ require_once 'my-config.php';
                 <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? $_SESSION['name'] : '' ?></h2>
             </div>
             <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-                <?= updateGalery($imgGalery) ?>
+
+            <?php 
+            foreach($imgGalery as $img) {
+            ?>
+
+            <div class="col s6 headline">
+               <div class="card">
+                 <div class="card-image imgCards">
+                    <img class="materialboxed" src="<?= 'img/'. $img ?>">
+                 </div>
+               </div>
+            </div>
+
+            <?php } ?>
+
             </div>
         </div>
     </div>
     
-    <script src="https://unpkg.com/scrollreveal"></script>
+    <!-- <script src="https://unpkg.com/scrollreveal"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="assets/lightbox.js"></script>
+    <!-- <script src="assets/lightbox.js"></script> -->
     <script>
-        lightbox.option({
-            'resizeDuration': 200,
-            'wrapAround': true
-        })
-        // imgGalery = document.querySelectorAll('.imgCards');
-        // imgGalery.forEach(element => {
-        //     imgGalery[element].onclick = 
-        // });
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     var elems = document.querySelectorAll('.materialboxed');
-        //     var options = {inDuration: 400, outDuration: 300};
-        //     var instances = M.Materialbox.init(elems, options);
-        // });
+        // lightbox.option({
+        //     'resizeDuration': 200,
+        //     'wrapAround': true
+        // })
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.materialboxed');
+            var options = {inDuration: 400, outDuration: 300};
+            var instances = M.Materialbox.init(elems, options);
+        });
+
     </script>
 </body>
 

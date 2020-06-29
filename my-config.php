@@ -177,23 +177,6 @@ if (isset($_FILES['myImg'])
 
 $imgGalery = array_diff(scandir('img'), array('..', '.'));
 
-function updateGalery($imgGalery) {
-
-    foreach($imgGalery as $img) {
-        echo
-        '
-    <div class="col s6 headline">
-      <div class="card">
-        <div class="card-image imgCards">
-        <a href="img/'. $img .'" data-lightbox="roadtrip" data-title="My caption"><img src="img/'. $img .'" data-lightbox="roadtrip"></a>
-        </div>
-      </div>
-    </div>';
-        // '<div class="col s6 headline">
-        //     <img class="materialboxed" width="650" src="img/'. $img .'">
-        // </div>';
-    }
-}
 
 function sizeGalery($imgGalery) {
     $totalImgSize = 0;
