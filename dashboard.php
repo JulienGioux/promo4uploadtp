@@ -75,7 +75,7 @@ if ($_SESSION['name'] != 'admin') {
                     <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button></p>
                 </form>
                 <div class="card-action col s12">
-                    <a class="blue-text text-darken-4 " href="dashboard.php">Déconnection</a>
+                    <a class="blue-text text-darken-4 " href="deconnection.php">Déconnection</a>
                 </div>
 
             <?php } ?>
