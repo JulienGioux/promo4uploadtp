@@ -185,7 +185,7 @@ function updateGalery($imgGalery) {
     <div class="col s6 headline">
       <div class="card">
         <div class="card-image imgCards">
-          <img src="img/'. $img .'" data-lightbox="roadtrip">
+        <a href="img/'. $img .'" data-lightbox="roadtrip" data-title="My caption"><img src="img/'. $img .'" data-lightbox="roadtrip"></a>
         </div>
       </div>
     </div>';
