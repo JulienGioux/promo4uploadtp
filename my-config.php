@@ -181,9 +181,17 @@ function updateGalery($imgGalery) {
 
     foreach($imgGalery as $img) {
         echo
-        '<div class="col s6 headline">
-            <img src="img/'. $img .'" itemprop="thumbnail" class="imgGalery" alt="Image description" />
-        </div>';
+        '
+    <div class="col s6 headline">
+      <div class="card">
+        <div class="card-image imgCards">
+          <img src="img/'. $img .'">
+        </div>
+      </div>
+    </div>';
+        // '<div class="col s6 headline">
+        //     <img class="materialboxed" width="650" src="img/'. $img .'">
+        // </div>';
     }
 }
 
