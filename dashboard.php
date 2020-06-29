@@ -74,7 +74,9 @@ if ($_SESSION['name'] != 'admin') {
                     <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button></p>
                 </form>
                 <div class="card-action col s12">
-                    <a class="blue-text text-darken-4 " href="deconnection.php">Déconnection</a>
+                    <form action="deconnection.php" method="post" novalidate class="col s8">
+                        <button class="blue-text text-darken-4" style="background: white; border: none;" name="deconnection" type="hidden"><a class="blue-text text-darken-4 btnDeco">Déconnection</a></button>
+                    </form>
                 </div>
 
             <?php } ?>

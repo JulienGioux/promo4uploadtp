@@ -9,6 +9,10 @@ define('ARR_USERS' , array(
     'guest' => '$2y$10$wj4BR.SutwzkBBy3JpOhmezAHyTGr..LK4FSwveqaVvbFxE6PPTqW'
 ));
 
+if (isset($_POST['deconnection'])) {
+    session_destroy();
+}
+
 $regexLogin = '/^[a-z0-9_-]{3,15}$/';
 $errorMessage = '';
 
