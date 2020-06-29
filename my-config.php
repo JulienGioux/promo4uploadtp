@@ -30,12 +30,12 @@ function verifPwd ($pwd, $user, $src = ARR_USERS) { //$pwd : pwd en clair à vé
             session_regenerate_id(true);
             $_SESSION['name'] = $user;
             if ($_SESSION['name'] == 'admin') {
-                header("Status: 308 Moved Permanently", false, 308);
+                header("Status: 301 Moved Permanently", false, 301);
                 header('Location: dashboard.php');
                 exit();
             }
             if ($_SESSION['name'] == 'guest') {
-                header("Status: 308 Moved Permanently", false, 308);
+                header("Status: 301 Moved Permanently", false, 301);
                 header('Location: galery.php');
                 exit();
             }
