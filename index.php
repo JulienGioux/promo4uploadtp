@@ -1,12 +1,13 @@
 <?php
 session_start();
 require_once 'my-config.php';
-// if (isset($_SESSION['name']) && $_SESSION['name'] = 'admin') {
-//     header('Location: dashboard.php');
-// }
-// if (isset($_SESSION['name']) && $_SESSION['name'] = 'guest') {
-//     header('Location: galery.php');
-// }
+if (isset($_SESSION['name']) && $_SESSION['name'] = 'admin') {
+    header('Location: dashboard.php');
+}
+if (isset($_SESSION['name']) && $_SESSION['name'] = 'guest') {
+    header('Location: galery.php');
+}
+
 ?>
 
 <!DOCTYPE html>
