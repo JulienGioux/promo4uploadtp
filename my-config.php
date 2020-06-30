@@ -125,12 +125,24 @@ function showMsgs ($filesArr) {
         }      
     }
 }
+$imgGalery = array_diff(scandir('img'), array('..', '.'));
 
+
+function sizeGalery($imgGalery) {
+    $totalImgSize = 0;
+    $totalGalerySize = '';
+    foreach($imgGalery as $img) {
+        $imgSize = filesize('img/'.$img);
+        $totalImgSize += $imgSize;
+    }
+    return $totalImgSize;
+}
 
 if (isset($_FILES['myImg']) 
 && count($_FILES['myImg']['tmp_name']) > 0 
 && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
-&& $_SERVER['REQUEST_METHOD'] == 'POST') 
+&& $_SERVER['REQUEST_METHOD'] == 'POST' 
+&& sizeGalery($imgGalery) < 50000000)
 {
     $filesArr = rearrange($_FILES['myImg']);
     foreach ($filesArr as $key => $fileArr) {
@@ -156,17 +168,6 @@ if (isset($_FILES['myImg'])
                         'mime' => 'none/none'];
         }
     }
-}
-
-$imgGalery = array_diff(scandir('img'), array('..', '.'));
+} 
 
 
-function sizeGalery($imgGalery) {
-    $totalImgSize = 50000000;
-    $totalGalerySize = '';
-    foreach($imgGalery as $img) {
-        $imgSize = filesize('img/'.$img);
-        $totalImgSize += $imgSize;
-    }
-    return $totalImgSize;
-}
