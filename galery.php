@@ -27,27 +27,9 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
     <div class="card row z-depth-3">
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
-                <h1 class="white-text">allPIX</h1>
+                <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' || isset($_SESSION['name']) && $_SESSION['name'] == 'guest' ? ucfirst($_SESSION['name']) : '' ?></h2>
             </div>
-            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-
-            <?php 
-            foreach(IMG_GALERY as $img) {
-            ?>
-
-            <div class="col s6 headline">
-               <div class="card">
-                 <div class="card-image imgCards">
-                    <img class="responsive-img materialboxed" src="<?= 'img/'. $img ?>">
-                 </div>
-               </div>
-            </div>
-
-            <?php } ?>
-
-            </div>
-
             <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'admin') { ?>
             <div class="card-action col s12">
                 <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
@@ -60,8 +42,20 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
                     <button class="blue-text text-darken-4" style="background: white; border: none;" name="deconnection" type="hidden"><a class="blue-text text-darken-4 btnDeco">Déconnection</a></button>
                 </form>
             </div>
-            <?php } ?>
+            <?php } ?> 
+            <?php 
+            foreach($imgGalery as $img) {
+            ?>
 
+            <div class="col s6 headline">
+               <div class="card">
+                 <div class="card-image materialboxed">
+                    <img class="responsive-img" src="<?= 'img/'. $img ?>">
+                 </div>
+               </div>
+            </div>
+            
+            <?php } ?>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
