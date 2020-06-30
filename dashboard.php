@@ -28,7 +28,7 @@ if ($_SESSION['name'] != 'admin') {
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? ucfirst($_SESSION['name']) : '' ?></h2>
-                <p>Quota : <?= sizeGalery($imgGalery) ?></p>
+                <p>Quota : <span id="quota"></span></p>
                 <p>Total image(s) : <?= count($imgGalery) ?></p>
             </div>
 
@@ -89,5 +89,14 @@ if ($_SESSION['name'] != 'admin') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="assets/uploadPreview.js"></script>
+    <script>
+        let totalGalerySize = <?= sizeGalery($imgGalery) ?>;
+        if (totalGalerySize > 1000000) {
+            totalGalerySize = Math.round(totalGalerySize / 1000000).toFixed(2) + ' Mo';
+        } else {
+            totalGalerySize = Math.round(totalGalerySize / 1000).toFixed(2) + ' ko';
+        }
+        document.getElementById('quota').innerText = totalGalerySize;
+    </script>
 </body>
 </html>

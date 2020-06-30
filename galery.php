@@ -30,11 +30,6 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
                 <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <h2 class="white-text">Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' || isset($_SESSION['name']) && $_SESSION['name'] == 'guest' ? ucfirst($_SESSION['name']) : '' ?></h2>
             </div>
-            <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-
-
-            </div>
-
             <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'admin') { ?>
             <div class="card-action col s12">
                 <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>

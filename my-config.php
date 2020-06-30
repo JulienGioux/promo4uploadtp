@@ -168,10 +168,10 @@ function sizeGalery($imgGalery) {
         $imgSize = filesize('img/'.$img);
         $totalImgSize += $imgSize;
     }
-    if ($totalImgSize > 1000000) {
-        $totalGalerySize = round($totalImgSize /1000000, 2) . ' mo / 50 mo';
-    } else {
-        $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
-    }
-    echo $totalGalerySize;
+    // if ($totalImgSize > 1000000) {
+    //     $totalGalerySize = round($totalImgSize /1000000, 2) . ' mo / 50 mo';
+    // } else {
+    //     $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
+    // }
+    return $totalImgSize;
 }
