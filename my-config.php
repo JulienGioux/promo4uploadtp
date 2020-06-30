@@ -3,6 +3,7 @@
 define('MAX_UPLOAD_SIZE', '2000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
+define('IMG_GALERY', array_diff(scandir('img'), array('..', '.')));
 
 define('ARR_USERS' , array(
     'admin' => '$2y$10$3gdUfYKl0zoAe1vCWxT2/OsJj5u65.TL9fLg2En5OxssIQn4n7Ioe',
@@ -83,6 +84,7 @@ function testUpload($fileArr) {
     return $test;
 }
 
+
 function testFileSize($fileArr) {
     if (MAX_UPLOAD_SIZE == $_POST['MAX_FILE_SIZE']) {
         if (MAX_UPLOAD_SIZE > $fileArr['size'] && $fileArr['size'] > 0) {
@@ -158,13 +160,10 @@ if (isset($_FILES['myImg'])
     }
 }
 
-$imgGalery = array_diff(scandir('img'), array('..', '.'));
-
-
-function sizeGalery($imgGalery) {
-    $totalImgSize = 0;
+function sizeGalery() {
     $totalGalerySize = '';
-    foreach($imgGalery as $img) {
+    $totalImgSize = 0;
+    foreach(IMG_GALERY as $img) {
         $imgSize = filesize('img/'.$img);
         $totalImgSize += $imgSize;
     }

@@ -33,7 +33,7 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
             <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 
             <?php 
-            foreach($imgGalery as $img) {
+            foreach(IMG_GALERY as $img) {
             ?>
 
             <div class="col s6 headline">

@@ -28,8 +28,8 @@ if ($_SESSION['name'] != 'admin') {
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <h1>AllPIX</h1>
                 <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? ucfirst($_SESSION['name']) : '' ?></h2>
-                <p>Quota : <?= sizeGalery($imgGalery) ?></p>
-                <p>Total image(s) : <?= count($imgGalery) ?></p>
+                <p>Quota : <?= sizeGalery() ?></p>
+                <p>Total image(s) : <?= count(IMG_GALERY) ?></p>
             </div>
 
             <?php
@@ -53,6 +53,7 @@ if ($_SESSION['name'] != 'admin') {
                                 <input class="file-path validate" type="text">
                                 <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
+                            <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                             <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Envoyer
                                 <i class="material-icons right">send</i>
                             </button>
@@ -64,7 +65,6 @@ if ($_SESSION['name'] != 'admin') {
                 </div>
                 <div class="card-action col s12">
                     <a class="blue-text text-darken-4 " href="dashboard.php">Dashboard</a>
-                    <?php (isset($filesArr) && testUpload($fileArr)) ? showMsgs($filesArr) : ''; ?>
                 </div>
             </div>
 
