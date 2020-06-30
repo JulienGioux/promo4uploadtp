@@ -8,8 +8,8 @@ if ($_SESSION['name'] != 'admin') {
     header("Status: 301 Moved Permanently", false, 301);
     header('Location: no-allowed.php');
     exit();
+    var_dump();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,7 +53,7 @@ if ($_SESSION['name'] != 'admin') {
                                 <input class="file-path validate" type="text">
                                 <p class="helper-text">Fichiers *jpeg, *jpg, *png < à 1Mo</p>
                             </div>
-                            <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Envoyer
+                            <button class="btn waves-effect waves-light blue darken-4 ml10 mr10 mb10" type="submit" name="action">Envoyer
                                 <i class="material-icons right">send</i>
                             </button>
                         </div>
@@ -92,9 +92,9 @@ if ($_SESSION['name'] != 'admin') {
     <script>
         let totalGalerySize = <?= sizeGalery($imgGalery) ?>;
         if (totalGalerySize > 1000000) {
-            totalGalerySize = Math.round(totalGalerySize / 1000000).toFixed(2) + ' Mo';
+            totalGalerySize = (totalGalerySize / 1000000).toFixed(2) + ' Mo';
         } else {
-            totalGalerySize = Math.round(totalGalerySize / 1000).toFixed(2) + ' ko';
+            totalGalerySize = (totalGalerySize / 1000).toFixed(2) + ' ko';
         }
         document.getElementById('quota').innerText = totalGalerySize;
     </script>
