@@ -1,6 +1,7 @@
 <?php 
 
 define('MAX_UPLOAD_SIZE', '2000000');
+define('MAX_GALERY_SIZE', '50000000');
 define('IMG', 'img/');
 define('ACCEPTED_MIME', array('image/jpeg', 'image/jpg', 'image/png'));
 define('IMG_GALERY', array_diff(scandir('img'), array('..', '.')));
@@ -143,7 +144,7 @@ if (isset($_FILES['myImg'])
 && count($_FILES['myImg']['tmp_name']) > 0 
 && $_SERVER['REQUEST_URI'] == $_SERVER['SCRIPT_NAME'] 
 && $_SERVER['REQUEST_METHOD'] == 'POST' 
-&& sizeGalery($imgGalery) < 50000000)
+&& sizeGalery($imgGalery) < MAX_GALERY_SIZE)
 {
     $filesArr = rearrange($_FILES['myImg']);
     foreach ($filesArr as $key => $fileArr) {
