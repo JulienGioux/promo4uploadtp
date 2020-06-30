@@ -20,7 +20,7 @@ require_once 'my-config.php';
     <div class="card row z-depth-3">
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
-                <h1>AllPIX</h1>
+                <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <p>Bonjour, vous n'avez pas les droits nécessaires pour accéder à cette page</p>
                 <a href="index.php" class="white-text">Accueil</a>
             </div>

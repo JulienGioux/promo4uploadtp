@@ -26,7 +26,7 @@ if ($_SESSION['name'] != 'admin') {
     <div class="card row z-depth-3">
         <div class="col s12 pl0 pr0">
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
-                <h1>AllPIX</h1>
+                <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? ucfirst($_SESSION['name']) : '' ?></h2>
                 <p>Quota : <?= sizeGalery($imgGalery) ?></p>
                 <p>Total image(s) : <?= count($imgGalery) ?></p>
