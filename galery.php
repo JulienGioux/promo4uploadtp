@@ -32,19 +32,6 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
             </div>
             <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
 
-            <?php 
-            foreach($imgGalery as $img) {
-            ?>
-
-            <div class="col s6 headline">
-               <div class="card">
-                 <div class="card-image imgCards">
-                    <img class="responsive-img materialboxed" src="<?= 'img/'. $img ?>">
-                 </div>
-               </div>
-            </div>
-
-            <?php } ?>
 
             </div>
 
@@ -60,8 +47,20 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
                     <button class="blue-text text-darken-4" style="background: white; border: none;" name="deconnection" type="hidden"><a class="blue-text text-darken-4 btnDeco">Déconnection</a></button>
                 </form>
             </div>
-            <?php } ?>
+            <?php } ?> 
+            <?php 
+            foreach($imgGalery as $img) {
+            ?>
 
+            <div class="col s6 headline">
+               <div class="card">
+                 <div class="card-image materialboxed">
+                    <img class="responsive-img" src="<?= 'img/'. $img ?>">
+                 </div>
+               </div>
+            </div>
+            
+            <?php } ?>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

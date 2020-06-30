@@ -22,7 +22,7 @@ require_once 'my-config.php';
         <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <p>Vous avez bien été déconnecté</p>
-                <a href="index.php" class="white-text">Accueil</a>
+                <a href="index.php" class="white-text">Se connecter</a>
             </div>
         </div>
     </div>
