@@ -162,16 +162,11 @@ $imgGalery = array_diff(scandir('img'), array('..', '.'));
 
 
 function sizeGalery($imgGalery) {
-    $totalImgSize = 0;
+    $totalImgSize = 50000000;
     $totalGalerySize = '';
     foreach($imgGalery as $img) {
         $imgSize = filesize('img/'.$img);
         $totalImgSize += $imgSize;
     }
-    // if ($totalImgSize > 1000000) {
-    //     $totalGalerySize = round($totalImgSize /1000000, 2) . ' mo / 50 mo';
-    // } else {
-    //     $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
-    // }
     return $totalImgSize;
 }

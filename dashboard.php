@@ -70,8 +70,8 @@ if ($_SESSION['name'] != 'admin') {
 
             <?php } else { ?>
             
-                <form action="" method="post" novalidate class="col s8  offset-s2">
-                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="upload" type="submit">Upload image</button></p>
+                <form action="" method="post" class="col s8  offset-s2">
+                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="upload" type="submit" <?= (sizeGalery($imgGalery) > 50000000) ? ' disabled' : '' ?>>Upload image</button></p>
                     <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button></p>
                 </form>
                 <div class="card-action col s12">
