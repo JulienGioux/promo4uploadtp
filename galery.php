@@ -38,7 +38,7 @@ if ($_SESSION['name'] != 'admin' && $_SESSION['name'] != 'guest') {
 
             <?php if (isset($_SESSION['name']) && $_SESSION['name'] == 'guest') { ?>
             <div class="card-action col s12">
-                <form action="deconnection.php" method="post" novalidate class="col s8">
+                <form action="deconnection.php" method="post"  class="col s8">
                     <button class="blue-text text-darken-4" style="background: white; border: none;" name="deconnection" type="hidden"><a class="blue-text text-darken-4 btnDeco">Déconnection</a></button>
                 </form>
             </div>

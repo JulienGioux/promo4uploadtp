@@ -28,7 +28,7 @@ if (isset($_SESSION['name']) && $_SESSION['name'] = 'guest') {
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
             </div>
-            <form action="" method="post" novalidate class="col s8  offset-s2">
+            <form action="" method="post"  class="col s8  offset-s2">
                 <p class="helper-text red-text text-accent-4"><?= !empty($_POST['login']) && !empty($_POST['password']) ? $errorMessage : '' ?></p>
                 <div class="row">
                     <div class="input-field col s6 offset-s3">
