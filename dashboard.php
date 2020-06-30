@@ -28,7 +28,7 @@ if ($_SESSION['name'] != 'admin') {
             <div class="blue darken-4 white-text pt20 pl20 pr20 pb20" id="headerForm">
                 <div class="center-align"><img src="assets\img\logo200x200White.png" alt="Logo AllPix" class="logopng"></div>
                 <h2>Bonjour, <?= isset($_SESSION['name']) && $_SESSION['name'] == 'admin' ? ucfirst($_SESSION['name']) : '' ?></h2>
-                <p>Quota : <?= sizeGalery() ?></p>
+                <p>Quota : <?= sizeGalery($imgGalery) ?></p>
                 <p>Total image(s) : <?= count(IMG_GALERY) ?></p>
             </div>
 
@@ -70,8 +70,8 @@ if ($_SESSION['name'] != 'admin') {
 
             <?php } else { ?>
             
-                <form action="" method="post" novalidate class="col s8  offset-s2">
-                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="upload" type="submit">Upload image</button></p>
+                <form action="" method="post" class="col s8  offset-s2">
+                    <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="upload" type="submit" <?= (sizeGalery($imgGalery) > 50000000) ? ' disabled' : '' ?>>Upload image</button></p>
                     <p><button class="btn waves-effect waves-light blue darken-4 btnDashboard" name="galery" type="empty"><a href="galery.php">Voir la galerie</a></button></p>
                 </form>
                 <div class="card-action col s12">

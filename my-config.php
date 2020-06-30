@@ -160,17 +160,16 @@ if (isset($_FILES['myImg'])
     }
 }
 
-function sizeGalery() {
+$imgGalery = array_diff(scandir('img'), array('..', '.'));
+
+
+function sizeGalery($imgGalery) {
+    $totalImgSize = 50000000;
     $totalGalerySize = '';
     $totalImgSize = 0;
     foreach(IMG_GALERY as $img) {
         $imgSize = filesize('img/'.$img);
         $totalImgSize += $imgSize;
     }
-    // if ($totalImgSize > 1000000) {
-    //     $totalGalerySize = round($totalImgSize /1000000, 2) . ' mo / 50 mo';
-    // } else {
-    //     $totalGalerySize = round($totalImgSize /1000) . ' ko / 50 mo';
-    // }
     return $totalImgSize;
 }
