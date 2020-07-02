@@ -1,5 +1,29 @@
 h1{
-    word-wrap: break-word;
+	word-wrap: break-word;
+	text-align: center;
+}
+h2 {
+	font-size: 2rem;
+	text-align: center;
+}
+#btnIndex {
+	left: 50%;
+    transform: translate(-50%, -50%);
+}
+.btnDashboard {
+	left: 50%;
+    transform: translate(-50%);
+}
+.btnDashboard a {
+	text-decoration: none;
+	color: white;
+}
+.container {
+	background: aliceblue;
+}
+
+.btnDeco {
+	cursor: pointer;
 }
  @media screen and (max-width: 600px) {
     h1 {
@@ -9,12 +33,10 @@ h1{
     }
  }
 
-img {
-    padding: 1rem;
-    width:100%;
-    height: 100%;
-}
 
+.logopng{
+	width: 80px;
+}
 /*---------- SPACING ----------*/
 
 
